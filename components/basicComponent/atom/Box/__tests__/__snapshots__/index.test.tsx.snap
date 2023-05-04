@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Box component test renders with custom props 1`] = `
+<div>
+  <div
+    class="sc-bgqQcB bzeUfN"
+    data-testid="@box/container"
+    style="height: 26px; border-radius: 6px; border: 1px solid red;"
+  />
+</div>
+`;
+
+exports[`Home renders with custom props 1`] = `
+<div>
+  <div
+    class="sc-bgqQcB bzeUfN"
+    data-testid="@box/container"
+    style="height: 26px; border-radius: 6px; border: 1px solid red;"
+  />
+</div>
+`;

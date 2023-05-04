@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon component test should render default props snapshot 1`] = `
+<div>
+  <svg
+    data-testid="@icon"
+    fill="#282C34"
+    height="24"
+    width="24"
+  />
+</div>
+`;
