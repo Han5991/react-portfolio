@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`image component test style render correctly 1`] = `
+<div>
+  <img
+    alt="test"
+    data-nimg="1"
+    data-testid="@image"
+    decoding="async"
+    height="200"
+    loading="lazy"
+    src="/_next/image?url=https%3A%2F%2Ftest.com&w=640&q=75"
+    srcset="/_next/image?url=https%3A%2F%2Ftest.com&w=256&q=75 1x, /_next/image?url=https%3A%2F%2Ftest.com&w=640&q=75 2x"
+    style="color: transparent;"
+    width="200"
+  />
+</div>
+`;
