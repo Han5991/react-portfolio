@@ -3,7 +3,7 @@
 import React from 'react';
 
 import {Badge, Box, Image, LoadingSpinner} from '@components/atom';
-import {Button} from '@components/molecule';
+import {Button, CheckBox} from '@components/molecule';
 import {useTheme} from '@lib/styled-components';
 
 const Home = () => {
@@ -25,6 +25,7 @@ const Home = () => {
       <Badge count={10} size={50} />
       <LoadingSpinner />
       <Button leftIcon="HamburgerButton" badge />
+      <CheckBox />
     </>
   );
 };
