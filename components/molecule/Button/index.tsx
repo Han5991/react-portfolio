@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 
-import {Badge, LoadingSpinner, Icon as Icons} from '@components/atom';
+import {LoadingSpinner, Icon as Icons} from '@components/atom';
 import {ButtonPropsWithoutRef} from '@lib/react-html-props';
 import styled, {useTheme} from '@lib/styled-components';
 
@@ -19,19 +19,23 @@ const HButton = styled.button<{
   size: number;
 }>`
   display: flex;
-  margin: 0;
+  align-items: center;
+  justify-content: center;
   border: 0;
-  padding: 2px 8px;
+  margin: 0;
+  padding: 4px 10px;
   cursor: pointer;
+  border-radius: 4px;
   background: ${({background}) => background};
   color: ${({color}) => color};
   min-width: ${({size}) => size}px;
   min-height: ${({size}) => size}px;
-`;
-
-const ButtonBadge = styled(Badge)`
-  position: absolute;
-  right: ${({theme}) => theme.size['2.5']}px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  box-shadow: 0 2px 4px
+    ${({theme}) => theme.color.text[700] + theme.opacity[40]};
 `;
 
 const Button = (props: ButtonProps) => {
@@ -42,13 +46,13 @@ const Button = (props: ButtonProps) => {
     size: sizeProp = 'large',
     leftIcon,
     rightIcon,
-    badge,
     disabled,
     loading,
     style,
     children,
     ...restProps
   } = props;
+
   const LeftIcon = leftIcon ? Icons.HamburgerButton : null;
   const RightIcon = rightIcon ? Icons[rightIcon] : null;
   const size =
@@ -77,8 +81,8 @@ const Button = (props: ButtonProps) => {
         };
       default:
         return {
-          background: 'transparent',
-          color: theme.color.black,
+          background: theme.color.content[0],
+          color: theme.color.text[700],
         };
     }
   }, [disabled, colorProp, theme]);
@@ -112,11 +116,6 @@ const Button = (props: ButtonProps) => {
               width={size}
               height={size}
               fill={color}
-            />
-          ) : null}
-          {badge ? (
-            <ButtonBadge
-              count={typeof badge === 'number' ? badge : undefined}
             />
           ) : null}
         </>

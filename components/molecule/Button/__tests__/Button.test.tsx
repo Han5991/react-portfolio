@@ -38,10 +38,4 @@ describe('Button component test', () => {
     expect(buttonElement).toHaveStyle('background: rgb(28, 124, 208)');
     expect(buttonElement).toHaveStyle('color: rgb(255, 255, 255)');
   });
-
-  test('renders badge with count', () => {
-    const {getByText} = render(<Button badge={5}>Button</Button>);
-    const badgeElement = getByText('5');
-    expect(badgeElement).toBeInTheDocument();
-  });
 });
