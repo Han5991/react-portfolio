@@ -3,6 +3,7 @@
 import React from 'react';
 
 import {Badge, Box, Image, LoadingSpinner} from '@components/atom';
+import {Button} from '@components/molecule';
 import {useTheme} from '@lib/styled-components';
 
 const Home = () => {
@@ -10,7 +11,6 @@ const Home = () => {
   return (
     <>
       <Box
-        size="large"
         type="square"
         borderColor={color.box[400]}
         onClick={() => console.log(1)}
@@ -22,8 +22,9 @@ const Home = () => {
           style={{borderRadius: size['1.5']}}
         />
       </Box>
-      <Badge count={10} />
+      <Badge count={10} size={50} />
       <LoadingSpinner />
+      <Button leftIcon="HamburgerButton" badge />
     </>
   );
 };

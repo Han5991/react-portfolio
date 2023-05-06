@@ -1,6 +1,6 @@
-import {FC, SVGProps} from 'react';
+import {FC} from 'react';
 
-import withIconProps from './withIconProps';
+import withIconProps, {IconProps} from './withIconProps';
 
 import * as svgs from '@assets/svgs';
 
@@ -8,7 +8,7 @@ export type SvgName = keyof typeof svgs;
 const svgNameList = Object.keys(svgs) as SvgName[];
 
 const SvgMap = {} as {
-  [k in SvgName]: FC<SVGProps<SVGSVGElement>>;
+  [k in SvgName]: FC<IconProps>;
 };
 
 svgNameList.forEach((svgName: SvgName) => {

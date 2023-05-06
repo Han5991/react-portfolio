@@ -2,7 +2,7 @@ import React, {FC, SVGProps} from 'react';
 
 import {useTheme} from '@lib/styled-components';
 
-type IconProps = SVGProps<SVGSVGElement>;
+export type IconProps = SVGProps<SVGSVGElement>;
 
 const withIconProps =
   (Icon: FC<IconProps>) =>
