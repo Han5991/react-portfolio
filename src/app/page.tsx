@@ -2,12 +2,7 @@
 
 import React from 'react';
 
-import {
-  Badge,
-  Box,
-  Image,
-  LoadingSpinner,
-} from '@components/basicComponent/atom';
+import {Badge, Box, Image, LoadingSpinner} from '@components/atom';
 import {useTheme} from '@lib/styled-components';
 
 const Home = () => {
