@@ -29,16 +29,16 @@
         "./src/*"
       ],
       "@components/*": [
-        "./components/*"
+        "./src/components/*"
       ],
       "@styles/*": [
-        "./styles/*"
+        "./src/styles/*"
       ],
       "@assets/*": [
-        "./assets/*"
+        "./src/assets/*"
       ],
       "@lib/*": [
-        "./lib/*"
+        "./src/lib/*"
       ]
     }
   },

@@ -3,7 +3,8 @@
 import React from 'react';
 
 import {Box, Image, LoadingSpinner} from '@components/atom';
-import {Button, CheckBox} from '@components/molecule';
+import Input from '@components/atom/Input';
+import {Button, CheckBox, SelectBox} from '@components/molecule';
 import {useTheme} from '@lib/styled-components';
 
 const Home = () => {
@@ -22,9 +23,15 @@ const Home = () => {
           style={{borderRadius: size['1.5']}}
         />
       </Box>
+      경
       <LoadingSpinner />
       <Button leftIcon="HamburgerButton">ㅁㄴㅇㄹ</Button>
       <CheckBox />
+      <SelectBox>
+        <option value={1}>aa</option>
+        <option value={2}>bb</option>
+      </SelectBox>
+      <Input type="week" />
     </>
   );
 };

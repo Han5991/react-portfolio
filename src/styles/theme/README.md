@@ -1,6 +1,6 @@
 # **theme**
 
-[![Back](https://img.shields.io/badge/Back_to_Superjoin-gray)](../../README.md)
+[![Back](https://img.shields.io/badge/Back_to_Superjoin-gray)](../../../README.md)
 
 **테마 규격화**
 

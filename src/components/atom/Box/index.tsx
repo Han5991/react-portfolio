@@ -14,6 +14,14 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    background-color: ${({theme}) => theme.color.content[100]};
+  }
+
+  &:active {
+    background-color: ${({theme}) => theme.color.content[300]};
+  }
 `;
 
 const Box = (props: BoxProps) => {
@@ -36,6 +44,7 @@ const Box = (props: BoxProps) => {
     const aspectRatio = type === 'circle' || type === 'square' ? 1 : undefined;
     return {
       height: size,
+      maxWidth: size,
       borderRadius,
       aspectRatio,
       backgroundColor,

@@ -36,6 +36,12 @@ const HButton = styled.button<{
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0 2px 4px
     ${({theme}) => theme.color.text[700] + theme.opacity[40]};
+  &:hover {
+    background-color: ${({theme}) => theme.color.content[100]};
+  }
+  &:active {
+    background-color: ${({theme}) => theme.color.content[300]};
+  }
 `;
 
 const Button = (props: ButtonProps) => {
@@ -53,7 +59,7 @@ const Button = (props: ButtonProps) => {
     ...restProps
   } = props;
 
-  const LeftIcon = leftIcon ? Icons.HamburgerButton : null;
+  const LeftIcon = leftIcon ? Icons[leftIcon] : null;
   const RightIcon = rightIcon ? Icons[rightIcon] : null;
   const size =
     typeof sizeProp === 'number' ? sizeProp : theme.size.box[sizeProp];
