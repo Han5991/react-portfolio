@@ -5,7 +5,7 @@ exports[`Box component test renders with custom props 1`] = `
   <div
     class="sc-bgqQcB bBOBOI"
     data-testid="@box/container"
-    style="height: 26px; max-width: 26px; border-radius: 6px; border: 1px solid red;"
+    style="height: 26px; min-width: 26px; border-radius: 6px; border: 1px solid red;"
   />
 </div>
 `;

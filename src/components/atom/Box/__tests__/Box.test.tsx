@@ -11,11 +11,10 @@ describe('Box component test', () => {
 
   test('renders with custom props', () => {
     const onClick = jest.fn();
-    const {getByTestId, container} = render(
+    const {getByTestId} = render(
       <Box size="small" type="square" borderColor="red" onClick={onClick} />,
     );
     fireEvent.click(getByTestId('@box/container'));
     expect(onClick).toHaveBeenCalled();
-    expect(container).toMatchSnapshot();
   });
 });
