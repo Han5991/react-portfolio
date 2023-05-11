@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   compiler: {
-    removeConsole: true,
+    styledComponents: true,
   },
   webpack: config => {
     config.module.rules.push({
@@ -19,7 +19,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*',
-        port: '',
         pathname: '/**/*',
       },
     ],
