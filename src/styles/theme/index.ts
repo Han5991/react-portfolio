@@ -2,7 +2,7 @@ import * as colors from './colors';
 import opacity from './opacity';
 import shadow from './shadow';
 import size from './size';
-import * as typography from './typography';
+import typography from './typography';
 
 export const enum ColorScheme {
   LIGHT = 'light',

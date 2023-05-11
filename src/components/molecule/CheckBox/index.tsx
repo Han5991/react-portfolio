@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+'use client';
 
 import {InputPropsWithoutRef} from '@lib/react-html-props';
-import {useTheme} from '@lib/styled-components';
+import styled, {useTheme} from '@lib/styled-components';
 
 type CheckBoxProps = {
   size?: 'large' | 'normal' | 'small' | number;

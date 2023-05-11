@@ -1,3 +1,5 @@
+'use client';
+
 import React, {useMemo} from 'react';
 
 import {DivPropsWithoutRef} from '@lib/react-html-props';
@@ -44,7 +46,7 @@ const Box = (props: BoxProps) => {
     const aspectRatio = type === 'circle' || type === 'square' ? 1 : undefined;
     return {
       height: size,
-      maxWidth: size,
+      minWidth: size,
       borderRadius,
       aspectRatio,
       backgroundColor,

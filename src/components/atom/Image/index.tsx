@@ -1,3 +1,5 @@
+'use client';
+
 import NImage, {ImageProps} from 'next/image';
 
 // eslint-disable-next-line react/jsx-props-no-spreading

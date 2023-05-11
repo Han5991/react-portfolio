@@ -1,13 +1,5 @@
-export const white = '#FFFFFF';
-export const black = '#000000';
-export const appBackground = '#FFFFFF';
-export const authBackground = '#F1EFEE';
-export const backdrop = '#000000B0';
-
-export const logo = {
-  top: '#0ABFD1',
-  bottom: '#F82F82',
-} as const;
+export const white = '#FFFFFF' as const;
+export const black = '#000000' as const;
 
 export const green = {
   50: '#EAF7F6',
@@ -121,4 +113,22 @@ export const thirdparty = {
   google: {green: '#34A853'},
 } as const;
 
-export const category = {};
+const light = {
+  white,
+  black,
+  green,
+  blue,
+  yellow,
+  pink,
+  purple,
+  red,
+  gray,
+  error,
+  text,
+  content,
+  box,
+  toggle,
+  thirdparty,
+};
+
+export default light;

@@ -1,3 +1,5 @@
+'use client';
+
 import {Box} from '@components/atom';
 import {SelectPropsWithoutRef} from '@lib/react-html-props';
 import styled from '@lib/styled-components';
@@ -9,14 +11,8 @@ const Container = styled(Box)`
 `;
 
 const SelectBox = (props: SelectBoxProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {children, style} = props;
-  return (
-    <Container>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <select style={style} {...props}>
-        {children}
-      </select>
-    </Container>
-  );
+  return <Container />;
 };
 export default SelectBox;

@@ -46,3 +46,5 @@ export const fontSizes = {
   '8xl': 96,
   '9xl': 128,
 } as const;
+const typography = {letterSpacings, lineHeights, fontWeights, fontSizes};
+export default typography;

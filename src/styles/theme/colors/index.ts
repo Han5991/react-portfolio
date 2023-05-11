@@ -1,4 +1,4 @@
-import * as dark from './dark';
-import * as light from './light';
+import dark from './dark';
+import light from './light';
 
 export {light, dark};

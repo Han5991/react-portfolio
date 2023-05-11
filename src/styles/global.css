@@ -3,3 +3,11 @@ body {
     padding: 0;
     margin: 0;
 }
+
+nav:hover ~ .content {
+    filter: blur(5px);
+}
+
+.content {
+    margin-top: 45px;
+}

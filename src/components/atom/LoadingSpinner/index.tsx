@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import styled, {keyframes, CSSProperties} from '@lib/styled-components';
