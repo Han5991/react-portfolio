@@ -1,5 +1,3 @@
-'use client';
-
 import {useState} from 'react';
 
 import {Icon, Link} from '@components/atom';
