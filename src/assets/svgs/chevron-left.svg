@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic/chevron-left</title>
+    <defs>
+        <path d="M2.41421356,7 L7.70710678,1.70710678 C8.09763107,1.31658249 8.09763107,0.683417511 7.70710678,0.292893219 C7.31658249,-0.0976310729 6.68341751,-0.0976310729 6.29289322,0.292893219 L0.292893219,6.29289322 C-0.0976310729,6.68341751 -0.0976310729,7.31658249 0.292893219,7.70710678 L6.29289322,13.7071068 C6.68341751,14.0976311 7.31658249,14.0976311 7.70710678,13.7071068 C8.09763107,13.3165825 8.09763107,12.6834175 7.70710678,12.2928932 L2.41421356,7 Z" id="path-1" />
+    </defs>
+    <g stroke="none" stroke-width="1" fill="#000000" fill-rule="evenodd">
+        <g id="0-2-1" transform="translate(-280.000000, -268.000000)">
+            <g id="Group-11-Copy" transform="translate(280.000000, 268.000000)">
+                <g id="ic/chevron-left">
+                    <g id="chevron-left" transform="translate(8.000000, 5.000000)">
+                        <mask id="mask-2" fill="#000000">
+                            <use xlink:href="#path-1" />
+                        </mask>
+                        <use id="Shape" fill="#000000" fill-rule="nonzero" xlink:href="#path-1" />
+                        <g id="COLOR/-black" mask="url(#mask-2)" fill="#000000" fill-rule="evenodd">
+                            <g transform="translate(-8.000000, -5.000000)" id="Rectangle">
+                                <rect id="Rectangle" x="0" y="0" width="24" height="24" />
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

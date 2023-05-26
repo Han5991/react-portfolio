@@ -1,12 +1,25 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import {render, RenderOptions} from '@testing-library/react';
-import React, {ReactElement} from 'react';
+import React, {ReactElement, ReactNode} from 'react';
 
+import {RecoilRoot} from '@lib/recoil';
 import {ThemeProvider} from '@lib/styled-components';
 import theme from '@styles/theme';
 
-const Providers = ({children}: {children: React.ReactNode}) => (
-  <ThemeProvider theme={theme.light}>{children}</ThemeProvider>
+const matchMediaMock = jest.fn().mockReturnValue({
+  matches: true,
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+});
+
+beforeAll(() => {
+  window.matchMedia = matchMediaMock;
+});
+
+const Providers = ({children}: {children: ReactNode}) => (
+  <RecoilRoot>
+    <ThemeProvider theme={theme.light}>{children}</ThemeProvider>
+  </RecoilRoot>
 );
 
 const customRender = (

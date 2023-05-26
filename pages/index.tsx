@@ -7,7 +7,7 @@ import {useTheme} from '@lib/styled-components';
 const Home = () => {
   const {color, size} = useTheme();
   return (
-    <Box>
+    <>
       <Box
         type="square"
         borderColor={color.box[400]}
@@ -21,8 +21,10 @@ const Home = () => {
         />
       </Box>
       <LoadingSpinner />
-      <Button leftIcon="HamburgerButton">메뉴</Button>
-    </Box>
+      <Button onClick={() => console.log(1)}>
+        <p>메뉴</p>
+      </Button>
+    </>
   );
 };
 export default Home;

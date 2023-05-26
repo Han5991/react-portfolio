@@ -1,11 +1,12 @@
 'use client';
 
-import {InputPropsWithoutRef} from '@lib/react-html-props';
+import React, {ComponentPropsWithoutRef} from 'react';
+
 import styled, {useTheme} from '@lib/styled-components';
 
 type CheckBoxProps = {
   size?: 'large' | 'normal' | 'small' | number;
-} & Omit<InputPropsWithoutRef, 'type' | 'size'>;
+} & Omit<ComponentPropsWithoutRef<'input'>, 'type' | 'size'>;
 
 const HCheckBox = styled.input<{size: number}>`
   height: ${({size}) => size}px;
