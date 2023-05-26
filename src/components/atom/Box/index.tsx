@@ -1,18 +1,17 @@
-'use client';
+import React, {useMemo, ComponentPropsWithoutRef} from 'react';
 
-import React, {useMemo} from 'react';
-
-import {DivPropsWithoutRef} from '@lib/react-html-props';
 import styled, {useTheme, CSSProperties} from '@lib/styled-components';
+
+type DivProps = ComponentPropsWithoutRef<'div'>;
 
 type BoxProps = {
   size?: 'large' | 'normal' | 'small' | number;
   type?: 'circle' | 'rectangle' | 'square' | 'chip';
   borderColor?: string;
   backgroundColor?: string;
-} & DivPropsWithoutRef;
+} & DivProps;
 
-const Container = styled.div`
+const Container = styled.div<DivProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +34,6 @@ const Box = (props: BoxProps) => {
     type = 'rectangle',
     borderColor,
     backgroundColor,
-    onClick,
     ...restProps
   } = props;
   const style: CSSProperties = useMemo(() => {
@@ -57,7 +55,6 @@ const Box = (props: BoxProps) => {
   return (
     <Container
       style={style}
-      onClick={onClick}
       data-testid="@box/container"
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...restProps}>

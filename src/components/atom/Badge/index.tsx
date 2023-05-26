@@ -1,13 +1,12 @@
-import React from 'react';
+import React, {ComponentPropsWithoutRef} from 'react';
 
-import {DivPropsWithoutRef} from '@lib/react-html-props';
 import styled, {useTheme} from '@lib/styled-components';
 
 type BadgeProps = {
   size?: number;
   color?: string;
   count?: number;
-} & DivPropsWithoutRef;
+} & ComponentPropsWithoutRef<'div'>;
 
 const Container = styled.div`
   display: flex;

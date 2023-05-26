@@ -1,7 +1,6 @@
-import {useMemo} from 'react';
+import {useMemo, ComponentPropsWithoutRef} from 'react';
 
 import {LoadingSpinner, Icon as Icons} from '@components/atom';
-import {ButtonPropsWithoutRef} from '@lib/react-html-props';
 import styled, {useTheme} from '@lib/styled-components';
 
 type ButtonProps = {
@@ -11,7 +10,7 @@ type ButtonProps = {
   badge?: boolean | number;
   rightIcon?: keyof typeof Icons;
   leftIcon?: keyof typeof Icons;
-} & ButtonPropsWithoutRef;
+} & ComponentPropsWithoutRef<'button'>;
 
 const HButton = styled.button<{
   background: string;
@@ -28,17 +27,19 @@ const HButton = styled.button<{
   border-radius: 4px;
   background: ${({background}) => background};
   color: ${({color}) => color};
-  min-width: ${({size}) => size}px;
-  min-height: ${({size}) => size}px;
+  width: ${({size}) => size}px;
+  height: ${({size}) => size}px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0 2px 4px
     ${({theme}) => theme.color.text[700] + theme.opacity[40]};
+
   &:hover {
     background-color: ${({theme}) => theme.color.content[100]};
   }
+
   &:active {
     background-color: ${({theme}) => theme.color.content[300]};
   }
@@ -92,7 +93,6 @@ const Button = (props: ButtonProps) => {
         };
     }
   }, [disabled, colorProp, theme]);
-
   return (
     <HButton
       type={type}
@@ -110,6 +110,7 @@ const Button = (props: ButtonProps) => {
           {LeftIcon ? (
             <LeftIcon
               data-testid={`@button/box/leftIcon-${leftIcon}`}
+              style={{marginRight: 8}}
               width={size}
               height={size}
               fill={color}
@@ -119,6 +120,7 @@ const Button = (props: ButtonProps) => {
           {RightIcon ? (
             <RightIcon
               data-testid={`@button/box/rightIcon-${rightIcon}`}
+              style={{marginLeft: 8}}
               width={size}
               height={size}
               fill={color}

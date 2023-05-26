@@ -1,7 +1,8 @@
-import {InputPropsWithoutRef} from '@lib/react-html-props';
+import React, {ComponentPropsWithoutRef} from 'react';
+
 import styled from '@lib/styled-components';
 
-type InputProps = {} & InputPropsWithoutRef;
+type InputProps = {} & ComponentPropsWithoutRef<'input'>;
 
 const HInput = styled.input`
   border: 1px solid ${({theme}) => theme.color.content[700]};

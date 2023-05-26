@@ -1,10 +1,11 @@
 'use client';
 
+import React, {ComponentPropsWithoutRef} from 'react';
+
 import {Box} from '@components/atom';
-import {SelectPropsWithoutRef} from '@lib/react-html-props';
 import styled from '@lib/styled-components';
 
-type SelectBoxProps = {} & SelectPropsWithoutRef;
+type SelectBoxProps = {} & ComponentPropsWithoutRef<'select'>;
 
 const Container = styled(Box)`
   background-color: ${({theme}) => theme.color.content[100]};

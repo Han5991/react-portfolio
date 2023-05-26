@@ -1,10 +1,8 @@
-import React from 'react';
+import {ReactElement, ReactNode, useState} from 'react';
 import {ServerStyleSheet, StyleSheetManager} from 'styled-components';
 
 export function useStyledComponentsRegistry() {
-  const [styledComponentsStyleSheet] = React.useState(
-    () => new ServerStyleSheet(),
-  );
+  const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
 
   const styledComponentsFlushEffect = () => {
     const styles = styledComponentsStyleSheet.getStyleElement();
@@ -14,13 +12,9 @@ export function useStyledComponentsRegistry() {
     return <>{styles}</>;
   };
 
-  const StyledComponentsRegistry = ({
-    children,
-  }: {
-    children: React.ReactNode;
-  }) => (
+  const StyledComponentsRegistry = ({children}: {children: ReactNode}) => (
     <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-      {children as React.ReactElement}
+      {children as ReactElement}
     </StyleSheetManager>
   );
 
