@@ -1,4 +1,7 @@
-import React from 'react';
+import {getFirestore} from '@firebase/firestore';
+import {initializeApp} from 'firebase/app';
+import {collection, getDocs, query, where, orderBy} from 'firebase/firestore';
+import React, {useEffect} from 'react';
 
 import {Box, Image, LoadingSpinner} from '@components/atom';
 import {Button} from '@components/molecule';
@@ -6,6 +9,37 @@ import {useTheme} from '@lib/styled-components';
 
 const Home = () => {
   const {color, size} = useTheme();
+
+  useEffect(() => {
+    const firebaseConfig = {
+      apiKey: 'AIzaSyCG4K72fSes1zjUxie3WrcnNEJPANOmGoA',
+      authDomain: 'peeps-business.firebaseapp.com',
+      databaseURL: 'https://peeps-business-default-rtdb.firebaseio.com',
+      projectId: 'peeps-business',
+      storageBucket: 'peeps-business.appspot.com',
+      messagingSenderId: '58864711977',
+      appId: '1:58864711977:web:5b3824124c060f69a31f38',
+      measurementId: 'G-167LQDWY1R',
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function getAll() {
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, 'community'),
+          orderBy('name'),
+          where('deleted', '==', false),
+        ),
+      );
+      return Promise.all(querySnapshot.docs.map(doc => doc.data()));
+    }
+
+    getAll().then(console.log);
+  }, []);
+
   return (
     <>
       <Box
