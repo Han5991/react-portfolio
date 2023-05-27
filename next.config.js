@@ -1,10 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   compiler: {
-    removeConsole: true,
+    styledComponents: true,
   },
   webpack: config => {
     config.module.rules.push({
@@ -19,7 +16,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*',
-        port: '',
         pathname: '/**/*',
       },
     ],
