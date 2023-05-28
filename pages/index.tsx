@@ -1,45 +1,14 @@
-import {getFirestore} from '@firebase/firestore';
-import {initializeApp} from 'firebase/app';
-import {collection, getDocs, query, where, orderBy} from 'firebase/firestore';
-import React, {useEffect} from 'react';
+import type {GetServerSideProps, NextPage} from 'next';
+import React from 'react';
 
 import {Box, Image, LoadingSpinner} from '@components/atom';
 import {Button} from '@components/molecule';
 import {useTheme} from '@lib/styled-components';
 
-const Home = () => {
+const Home: NextPage<{data: string}> = props => {
+  const {data} = props;
+  console.log(data);
   const {color, size} = useTheme();
-
-  useEffect(() => {
-    const firebaseConfig = {
-      apiKey: 'AIzaSyCG4K72fSes1zjUxie3WrcnNEJPANOmGoA',
-      authDomain: 'peeps-business.firebaseapp.com',
-      databaseURL: 'https://peeps-business-default-rtdb.firebaseio.com',
-      projectId: 'peeps-business',
-      storageBucket: 'peeps-business.appspot.com',
-      messagingSenderId: '58864711977',
-      appId: '1:58864711977:web:5b3824124c060f69a31f38',
-      measurementId: 'G-167LQDWY1R',
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function getAll() {
-      const querySnapshot = await getDocs(
-        query(
-          collection(db, 'community'),
-          orderBy('name'),
-          where('deleted', '==', false),
-        ),
-      );
-      return Promise.all(querySnapshot.docs.map(doc => doc.data()));
-    }
-
-    getAll().then(console.log);
-  }, []);
-
   return (
     <>
       <Box
@@ -61,4 +30,19 @@ const Home = () => {
     </>
   );
 };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getServerSideProps: GetServerSideProps = async ({query}) =>
+  // const {code} = query;
+  // const url = 'https://www.strava.com/oauth/token';
+  //
+  // const params = {
+  //   client_id: '108048',
+  //   client_secret: '5d6f334d0301e956bfb89336c1ec7f7a1aa59914',
+  //   code,
+  //   grant_type: 'authorization_code',
+  // };
+  // const response = await axios.post(url, null, {params}).catch(console.log);
+  ({props: {data: 'response?.data'}});
+
 export default Home;
