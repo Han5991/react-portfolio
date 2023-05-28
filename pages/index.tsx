@@ -1,16 +1,43 @@
 import type {GetServerSideProps, NextPage} from 'next';
-import React from 'react';
 
-import {Box, Image, LoadingSpinner} from '@components/atom';
+import {Box, Image, Link, LoadingSpinner} from '@components/atom';
 import {Button} from '@components/molecule';
+import {getDocs, query, collection} from '@lib/firebase/firestore';
+import {getToken} from '@lib/next-auth/jwt';
+import {signIn, signOut} from '@lib/next-auth/react';
+import {useQuery} from '@lib/react-query';
 import {useTheme} from '@lib/styled-components';
 
-const Home: NextPage<{data: string}> = props => {
-  const {data} = props;
-  console.log(data);
+const Home: NextPage = props => {
+  console.log(props);
+  const {data, isLoading} = useQuery({
+    queryKey: ['promotion'],
+    queryFn: async () => {
+      const querySnapshot = await getDocs(query(collection('promotion')));
+      return Promise.all(querySnapshot.docs.map(doc => doc.data()));
+    },
+  });
+  console.log(data, isLoading);
+
   const {color, size} = useTheme();
   return (
     <>
+      <Link
+        href="/api/auth/signin"
+        onClick={e => {
+          e.preventDefault();
+          signIn().then(console.log);
+        }}>
+        Sign in
+      </Link>
+      <Link
+        href="/api/auth/signout"
+        onClick={e => {
+          e.preventDefault();
+          signOut().then(console.log);
+        }}>
+        Sign out
+      </Link>
       <Box
         type="square"
         borderColor={color.box[400]}
@@ -31,18 +58,8 @@ const Home: NextPage<{data: string}> = props => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getServerSideProps: GetServerSideProps = async ({query}) =>
-  // const {code} = query;
-  // const url = 'https://www.strava.com/oauth/token';
-  //
-  // const params = {
-  //   client_id: '108048',
-  //   client_secret: '5d6f334d0301e956bfb89336c1ec7f7a1aa59914',
-  //   code,
-  //   grant_type: 'authorization_code',
-  // };
-  // const response = await axios.post(url, null, {params}).catch(console.log);
-  ({props: {data: 'response?.data'}});
+export const getServerSideProps: GetServerSideProps = async ({req}) => ({
+  props: {data: await getToken({req})},
+});
 
 export default Home;
