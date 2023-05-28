@@ -1,47 +1,43 @@
-import {getFirestore} from '@firebase/firestore';
-import {initializeApp} from 'firebase/app';
-import {collection, getDocs, query, where, orderBy} from 'firebase/firestore';
-import React, {useEffect} from 'react';
+import type {GetServerSideProps, NextPage} from 'next';
 
-import {Box, Image, LoadingSpinner} from '@components/atom';
+import {Box, Image, Link, LoadingSpinner} from '@components/atom';
 import {Button} from '@components/molecule';
+import {getDocs, query, collection} from '@lib/firebase/firestore';
+import {getToken} from '@lib/next-auth/jwt';
+import {signIn, signOut} from '@lib/next-auth/react';
+import {useQuery} from '@lib/react-query';
 import {useTheme} from '@lib/styled-components';
 
-const Home = () => {
-  const {color, size} = useTheme();
-
-  useEffect(() => {
-    const firebaseConfig = {
-      apiKey: 'AIzaSyCG4K72fSes1zjUxie3WrcnNEJPANOmGoA',
-      authDomain: 'peeps-business.firebaseapp.com',
-      databaseURL: 'https://peeps-business-default-rtdb.firebaseio.com',
-      projectId: 'peeps-business',
-      storageBucket: 'peeps-business.appspot.com',
-      messagingSenderId: '58864711977',
-      appId: '1:58864711977:web:5b3824124c060f69a31f38',
-      measurementId: 'G-167LQDWY1R',
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function getAll() {
-      const querySnapshot = await getDocs(
-        query(
-          collection(db, 'community'),
-          orderBy('name'),
-          where('deleted', '==', false),
-        ),
-      );
+const Home: NextPage = props => {
+  console.log(props);
+  const {data, isLoading} = useQuery({
+    queryKey: ['promotion'],
+    queryFn: async () => {
+      const querySnapshot = await getDocs(query(collection('promotion')));
       return Promise.all(querySnapshot.docs.map(doc => doc.data()));
-    }
+    },
+  });
+  console.log(data, isLoading);
 
-    getAll().then(console.log);
-  }, []);
-
+  const {color, size} = useTheme();
   return (
     <>
+      <Link
+        href="/api/auth/signin"
+        onClick={e => {
+          e.preventDefault();
+          signIn().then(console.log);
+        }}>
+        Sign in
+      </Link>
+      <Link
+        href="/api/auth/signout"
+        onClick={e => {
+          e.preventDefault();
+          signOut().then(console.log);
+        }}>
+        Sign out
+      </Link>
       <Box
         type="square"
         borderColor={color.box[400]}
@@ -61,4 +57,9 @@ const Home = () => {
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async ({req}) => ({
+  props: {data: await getToken({req})},
+});
+
 export default Home;

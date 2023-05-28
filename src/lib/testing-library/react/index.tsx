@@ -2,6 +2,7 @@
 import {render, RenderOptions} from '@testing-library/react';
 import React, {ReactElement, ReactNode} from 'react';
 
+import {QueryClient, QueryClientProvider} from '@lib/react-query';
 import {RecoilRoot} from '@lib/recoil';
 import {ThemeProvider} from '@lib/styled-components';
 import theme from '@styles/theme';
@@ -16,9 +17,12 @@ beforeAll(() => {
   window.matchMedia = matchMediaMock;
 });
 
+const queryClient = new QueryClient();
 const Providers = ({children}: {children: ReactNode}) => (
   <RecoilRoot>
-    <ThemeProvider theme={theme.light}>{children}</ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme.light}>{children}</ThemeProvider>
+    </QueryClientProvider>
   </RecoilRoot>
 );
 
