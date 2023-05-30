@@ -10,7 +10,7 @@ const SLink = styled(NLink)`
   color: ${({theme}) => theme.color.text[700]};
 
   &:hover {
-    color: ${({theme}) => theme.color.text[600]};
+    color: ${({theme}) => theme.color.text[400]};
   }
 ` as typeof NLink;
 

@@ -10,8 +10,10 @@ import RootNav from './RootNav';
 import SubNav from './SubNav';
 import TopNav from './TopNav';
 
-import {Icon, Link, Li, Ul} from '@components/atom';
+import {Icon, Link, Li, Ul, Line} from '@components/atom';
+import Image from '@components/atom/Image';
 import {useMediaQuery} from '@hooks/media';
+import {useSession} from '@lib/next-auth/react';
 import {useRecoilValue, useSetRecoilState} from '@lib/recoil';
 import styled, {useTheme} from '@lib/styled-components';
 
@@ -24,6 +26,7 @@ const NavBarUl = styled(Ul)<{isMobile: boolean}>`
 
 const NavBarLi = styled(Li)`
   padding: ${({theme}) => theme.size['2.5']}px;
+  color: ${({theme}) => theme.color.text[700]};
 `;
 
 type NavigationProps = {
@@ -39,6 +42,8 @@ const NavBar = ({showBlur, hideBlur}: NavigationProps) => {
   const show = useSetRecoilState(mainMenuShowSelector);
   const {media} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
+
+  const {data: userData, status} = useSession();
 
   const showContests = debounce(subMenu => {
     setSubMenu([...subMenu]);
@@ -70,10 +75,20 @@ const NavBar = ({showBlur, hideBlur}: NavigationProps) => {
                 <Link href={link}>{title}</Link>
               </NavBarLi>
             ))}
-        <NavBarLi>
-          <Link href="/">
-            <Icon.Search />
-          </Link>
+        <Line type="vertical" length={30} />
+        <NavBarLi style={{alignItems: 'center'}}>
+          {status === 'authenticated' ? (
+            <>
+              안녕하세요 {userData?.user?.name}님
+              <Image
+                alt="userImage"
+                style={{borderRadius: '50%', marginLeft: 10}}
+                src={userData?.user.picture}
+                width={35}
+                height={35}
+              />
+            </>
+          ) : null}
         </NavBarLi>
         {isMobile ? (
           <NavBarLi
