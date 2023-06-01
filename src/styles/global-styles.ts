@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   .content.blurred {
     filter: blur(5px);
   }
+  
   h1 {
     margin: 0;
   }

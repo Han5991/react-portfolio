@@ -2,7 +2,7 @@ import {ComponentPropsWithoutRef} from 'react';
 
 import styled from '@lib/styled-components';
 
-type LiProps = ComponentPropsWithoutRef<'li'>;
+type LiProps = {} & ComponentPropsWithoutRef<'li'>;
 
 const HLi = styled.li`
   display: flex;

@@ -13,9 +13,8 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({token, account}) {
-      return {token, account};
-    },
+    jwt: ({token, account}) => ({...token, ...account, scope: 'read'}),
+    session: ({session, token}) => ({...session, user: {...token}}),
   },
 };
 
