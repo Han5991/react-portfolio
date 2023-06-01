@@ -11,7 +11,7 @@ import SubNav from './SubNav';
 import TopNav from './TopNav';
 
 import {Icon, Link, Li, Ul, Line} from '@components/atom';
-import Image from '@components/atom/Image';
+import {Avatar} from '@components/molecule';
 import {useMediaQuery} from '@hooks/media';
 import {useSession} from '@lib/next-auth/react';
 import {useRecoilValue, useSetRecoilState} from '@lib/recoil';
@@ -80,13 +80,7 @@ const NavBar = ({showBlur, hideBlur}: NavigationProps) => {
           {status === 'authenticated' ? (
             <>
               안녕하세요 {userData?.user?.name}님
-              <Image
-                alt="userImage"
-                style={{borderRadius: '50%', marginLeft: 10}}
-                src={userData?.user.picture}
-                width={35}
-                height={35}
-              />
+              <Avatar src={userData?.user.picture} size="small" />
             </>
           ) : null}
         </NavBarLi>

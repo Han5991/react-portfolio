@@ -1,8 +1,11 @@
 import NImage, {ImageProps} from 'next/image';
 
 const Image = (props: ImageProps) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <NImage data-testid="@image" {...props} />
+  <NImage
+    data-testid="@image"
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    {...props}
+  />
 );
 
 export default Image;

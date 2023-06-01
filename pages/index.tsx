@@ -1,6 +1,7 @@
 import type {NextPage} from 'next';
+import React from 'react';
 
-import {Box, Image, Link, LoadingSpinner} from '@components/atom';
+import {Box, Image, Link, LoadingSpinner, Skeleton} from '@components/atom';
 import {Button} from '@components/molecule';
 import {signIn, signOut} from '@lib/next-auth/react';
 import {useTheme} from '@lib/styled-components';
@@ -9,6 +10,9 @@ const Home: NextPage = () => {
   const {color, size} = useTheme();
   return (
     <>
+      <Box size="small">
+        <Skeleton show />
+      </Box>
       <Link
         href="/api/auth/signin"
         onClick={e => {

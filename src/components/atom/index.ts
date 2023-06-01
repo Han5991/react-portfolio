@@ -7,3 +7,4 @@ export {default as LoadingSpinner} from './LoadingSpinner';
 export {default as Li} from './Li';
 export {default as Ul} from './Ul';
 export {default as Line} from './Line';
+export {default as Skeleton} from './Skeleton';
