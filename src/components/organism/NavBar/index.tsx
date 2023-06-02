@@ -29,12 +29,7 @@ const NavBarLi = styled(Li)`
   color: ${({theme}) => theme.color.text[700]};
 `;
 
-type NavigationProps = {
-  showBlur: () => void;
-  hideBlur: () => void;
-};
-
-const NavBar = ({showBlur, hideBlur}: NavigationProps) => {
+const NavBar = () => {
   const [navHeight, setNavHeight] = useState('44px');
   const [hiddenNavHeight, setHiddenNavHeight] = useState('0px');
   const setSubMenu = useSetRecoilState(subMenuSelector);
@@ -42,18 +37,15 @@ const NavBar = ({showBlur, hideBlur}: NavigationProps) => {
   const show = useSetRecoilState(mainMenuShowSelector);
   const {media} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
-
   const {data: userData, status} = useSession();
 
   const showContests = debounce(subMenu => {
     setSubMenu([...subMenu]);
     show(true);
-    showBlur();
     setNavHeight('220px');
   }, 300);
 
   const hideContests = () => {
-    hideBlur();
     setNavHeight('44px');
   };
 
@@ -78,10 +70,7 @@ const NavBar = ({showBlur, hideBlur}: NavigationProps) => {
         <Line type="vertical" length={30} />
         <NavBarLi style={{alignItems: 'center'}}>
           {status === 'authenticated' ? (
-            <>
-              안녕하세요 {userData?.user?.name}님
-              <Avatar src={userData?.user.picture} size="small" />
-            </>
+            <Avatar src={userData?.user.picture} size="small" />
           ) : null}
         </NavBarLi>
         {isMobile ? (
