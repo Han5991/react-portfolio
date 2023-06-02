@@ -1,5 +1,4 @@
 import type {AppProps} from 'next/app';
-import {useState} from 'react';
 
 import ClientOnly from '@components/ClientOnly';
 import {NavBar} from '@components/organism';
@@ -15,9 +14,6 @@ const queryClient = new QueryClient();
 
 const MyApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) => {
   const themeMode = useThemeMode();
-  const [blur, setBlur] = useState(false);
-  const showBlur = () => setBlur(true);
-  const hideBlur = () => setBlur(false);
 
   return (
     <RecoilRoot>
@@ -29,11 +25,9 @@ const MyApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) => {
             }>
             <GlobalStyle />
             <ClientOnly>
-              <NavBar showBlur={showBlur} hideBlur={hideBlur} />
-              <div className={`content${blur ? ' blurred' : ''}`}>
-                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                <Component {...pageProps} />
-              </div>
+              <NavBar />
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <Component {...pageProps} />
             </ClientOnly>
           </ThemeProvider>
         </QueryClientProvider>

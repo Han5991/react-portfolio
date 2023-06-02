@@ -45,6 +45,9 @@
       ],
       "@hooks/*": [
         "./src/hooks/*"
+      ],
+      "@feature/*": [
+        "./src/feature/*"
       ]
     }
   },

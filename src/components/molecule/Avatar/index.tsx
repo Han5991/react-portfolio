@@ -27,7 +27,7 @@ const Avatar = (props: AvatarProps) => {
   const imageShow = () => setIsLoading(false);
 
   return (
-    <Box type="square" size={viewSize} onClick={onClick}>
+    <Box type="circle" size={viewSize} onClick={onClick}>
       <Skeleton show={isLoading} />
       <AvatarImage
         src={src}

@@ -17,50 +17,42 @@ const subMenuState = atom<SubMenu[]>({
   default: [],
 });
 
-const dummySubMenu: SubMenu[] = [
-  {
-    id: 0,
-    title: '서브메뉴1',
-    content: [
-      {id: 0, title: '서브메뉴 콘텐츠1', link: '/'},
-      {id: 1, title: '서브메뉴 콘텐츠2', link: '/'},
-      {id: 2, title: '서브메뉴 콘텐츠3', link: '/'},
-    ],
-  },
-  {
-    id: 1,
-    title: '서브메뉴2',
-    content: [
-      {id: 0, title: '서브메뉴 콘텐츠1', link: '/'},
-      {id: 1, title: '서브메뉴 콘텐츠2', link: '/'},
-      {id: 2, title: '서브메뉴 콘텐츠3', link: '/'},
-    ],
-  },
-  {
-    id: 2,
-    title: '서브메뉴3',
-    content: [
-      {id: 0, title: '서브메뉴 콘텐츠1', link: '/'},
-      {id: 1, title: '서브메뉴 콘텐츠2', link: '/'},
-      {id: 2, title: '서브메뉴 콘텐츠3', link: '/'},
-    ],
-  },
-];
-
 const mainMenuState = atom<MainMenu[]>({
   key: 'mainMenu',
   default: [
     {
       id: 0,
-      title: '메인메뉴1',
+      title: '대시보드',
       link: '/',
-      subMenu: [...dummySubMenu],
+      subMenu: [
+        {
+          id: 0,
+          title: '활동피드',
+          content: [{id: 0, title: '활동피드', link: '/'}],
+        },
+        {
+          id: 1,
+          title: '히트맵',
+          content: [{id: 0, title: '히트맵', link: '/'}],
+        },
+      ],
     },
     {
       id: 1,
-      title: '메인메뉴2',
+      title: '트레이닝',
       link: '/',
-      subMenu: [...dummySubMenu],
+      subMenu: [
+        {
+          id: 0,
+          title: '로그',
+          content: [{id: 0, title: '로그', link: '/'}],
+        },
+        {
+          id: 1,
+          title: '계획',
+          content: [{id: 0, title: '계획', link: '/'}],
+        },
+      ],
     },
   ],
 });
