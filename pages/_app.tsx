@@ -26,8 +26,10 @@ const MyApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) => {
             <GlobalStyle />
             <ClientOnly>
               <NavBar />
-              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-              <Component {...pageProps} />
+              <div className="content">
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <Component {...pageProps} />
+              </div>
             </ClientOnly>
           </ThemeProvider>
         </QueryClientProvider>
