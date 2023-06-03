@@ -10,20 +10,10 @@ const Home: NextPage = () => (
     <Box size="small">
       <Skeleton show />
     </Box>
-    <Link
-      href="/api/auth/signin"
-      onClick={e => {
-        e.preventDefault();
-        signIn();
-      }}>
+    <Link href="/api/auth/signin" onClick={() => signIn()}>
       Sign in
     </Link>
-    <Link
-      href="/api/auth/signout"
-      onClick={e => {
-        e.preventDefault();
-        signOut();
-      }}>
+    <Link href="/api/auth/signout" onClick={() => signOut()}>
       Sign out
     </Link>
     <LoadingSpinner />
