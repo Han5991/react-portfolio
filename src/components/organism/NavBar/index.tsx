@@ -84,11 +84,9 @@ const NavBar = () => {
           </NavBarLi>
         ) : null}
       </NavBarUl>
+      <SubNav />
       {isMobile ? (
-        <>
-          <SubNav />
-          <TopNav height={hiddenNavHeight} mainMenu={mainMenu} />
-        </>
+        <TopNav height={hiddenNavHeight} mainMenu={mainMenu} />
       ) : null}
     </RootNav>
   );
