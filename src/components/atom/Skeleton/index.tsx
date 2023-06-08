@@ -15,7 +15,7 @@ const SkeletonContainer = styled.div`
   border-radius: inherit;
   background: linear-gradient(90deg, #eee 25%, #f5f5f5 37%, #eee 63%);
   background-size: 100%;
-  animation: ${skeletonLoading} 6s infinite linear;
+  animation: ${skeletonLoading} 10s infinite linear;
 `;
 
 type SkeletonProps = {

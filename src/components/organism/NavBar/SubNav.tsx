@@ -8,24 +8,29 @@ const Container = styled.div`
   display: flex;
 `;
 
-const SubNavLi = styled(Li)<{isVisible: boolean}>`
+const SubNavLi = styled(Li)`
   padding: 10px;
-  opacity: ${({isVisible}) => (isVisible ? 1 : 0)};
   transition: opacity 0.3s linear;
 `;
 
-const MenuContainer = styled.div`
+const LiContainer = styled.div`
+  display: flex;
   flex: 1;
-  flex-direction: column;
-  padding-left: 22px;
-  padding-right: 22px;
+  justify-content: center;
 `;
 
-const MenuTitle = styled.h2<{isVisible: boolean}>`
+const MenuContainer = styled.div<{isVisible: boolean}>`
+  flex-direction: column;
+  padding: 0 10px 0 40px;
+  opacity: ${({isVisible}) => (isVisible ? 1 : 0)};
+  transition: opacity 0.3s linear;
+  align-items: center;
+`;
+
+const MenuTitle = styled.h2`
   font-size: ${({theme}) => theme.typography.fontSizes.sm}px;
   color: ${({theme}) => theme.color.text[300]};
   padding: 10px 10px 0 10px;
-  opacity: ${({isVisible}) => (isVisible ? 1 : 0)};
   transition: opacity 0.3s linear;
 `;
 
@@ -35,18 +40,21 @@ const SubNav = () => {
 
   return (
     <Container onMouseLeave={() => setIsVisible(false)}>
-      {subMenus.map(({id, title, content}) => (
-        <MenuContainer key={id}>
-          <MenuTitle isVisible={isVisible}>{title}</MenuTitle>
-          <Ul>
-            {content.map(({id: contentId, title: contentTitle, link}) => (
-              <SubNavLi key={contentId} isVisible={isVisible}>
-                <Link href={link}>{contentTitle}</Link>
-              </SubNavLi>
-            ))}
-          </Ul>
-        </MenuContainer>
-      ))}
+      <LiContainer>
+        {subMenus.map(({id, title, content}) => (
+          <MenuContainer key={id} isVisible={isVisible}>
+            <MenuTitle>{title}</MenuTitle>
+            <Ul>
+              {content.map(({id: contentId, title: contentTitle, link}) => (
+                <SubNavLi key={contentId}>
+                  <Link href={link}>{contentTitle}</Link>
+                </SubNavLi>
+              ))}
+            </Ul>
+          </MenuContainer>
+        ))}
+      </LiContainer>
+      <LiContainer />
     </Container>
   );
 };

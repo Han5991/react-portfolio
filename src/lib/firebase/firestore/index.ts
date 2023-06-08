@@ -18,7 +18,7 @@ const db = getFirestore(app);
 const customCollection = (path: string, ...pathSegments: string[]) =>
   collection(db, path, ...pathSegments);
 
-type docPathMap = 'accounts';
+type docPathMap = 'accounts' | 'activity';
 
 const customDoc = (path: docPathMap, ...pathSegments: string[]) =>
   doc(db, path, ...pathSegments);
