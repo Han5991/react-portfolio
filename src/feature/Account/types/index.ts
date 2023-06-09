@@ -1,4 +1,4 @@
-export interface Athlete {
+export interface IAthlete {
   badge_type_id: number;
   bio: string;
   city: string;
@@ -21,7 +21,7 @@ export interface Athlete {
   weight: number;
 }
 
-export interface IUser {
+export interface IAccount {
   id: string;
   name: string;
   avatar: string;

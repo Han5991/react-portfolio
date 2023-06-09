@@ -1,4 +1,4 @@
-import {getFirestore, collection, doc} from 'firebase/firestore';
+import {getFirestore} from 'firebase/firestore';
 
 import {initializeApp, FirebaseOptions} from '../app';
 
@@ -11,17 +11,7 @@ const firebaseConfig: FirebaseOptions = {
   appId: '1:157655976073:web:354b8cdb2e8e41fff55e58',
   measurementId: 'G-ZF6TZ38YWS',
 };
-
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-const customCollection = (path: string, ...pathSegments: string[]) =>
-  collection(db, path, ...pathSegments);
-
-type docPathMap = 'accounts';
-
-const customDoc = (path: docPathMap, ...pathSegments: string[]) =>
-  doc(db, path, ...pathSegments);
-
+export const db = getFirestore(app);
 export * from 'firebase/firestore';
-export {customCollection as collection, customDoc as doc};

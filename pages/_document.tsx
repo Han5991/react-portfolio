@@ -33,7 +33,10 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head
+          title="my-strava"
+          content="자신만의 스트라바를 구축 할 수 있어요!"
+        />
         <body>
           <Main />
           <NextScript />
