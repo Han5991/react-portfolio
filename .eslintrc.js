@@ -71,6 +71,7 @@ module.exports = {
       {exceptAfterSingleLine: true},
     ],
     '@typescript-eslint/no-unused-vars': ['error'],
+    camelcase: 'off',
   },
   ignorePatterns: ['node_modules'],
   globals: {fetch: true},

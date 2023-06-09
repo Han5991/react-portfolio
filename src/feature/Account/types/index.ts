@@ -21,6 +21,13 @@ export interface IAthlete {
   weight: number;
 }
 
+export interface IStravaToken {
+  access_token: string;
+  expires_at: number;
+  refresh_token: string;
+  expires_in: number;
+}
+
 export interface IAccount {
   id: string;
   name: string;
@@ -29,4 +36,6 @@ export interface IAccount {
   country: string;
   sex: 'M' | 'F';
   weight: number;
+
+  activity_read?: IStravaToken;
 }

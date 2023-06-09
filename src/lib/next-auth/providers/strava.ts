@@ -4,7 +4,6 @@ import {createAccount} from '@feature/Account/data';
 import {IAthlete} from '@feature/Account/types';
 
 const {STRAVA_ID, STRAVA_SECRET} = process.env;
-
 export default StravaProvider<IAthlete>({
   clientId: STRAVA_ID,
   clientSecret: STRAVA_SECRET,

@@ -29,7 +29,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const LeftArea = styled.div<{isMobile: boolean}>`
+const LeftArea = styled.section<{isMobile: boolean}>`
   display: ${({isMobile}) => (isMobile ? 'none' : 'flex')};
   flex: 1;
   flex-direction: column;
@@ -37,7 +37,7 @@ const LeftArea = styled.div<{isMobile: boolean}>`
   justify-content: center;
 `;
 
-const RightArea = styled.div`
+const RightArea = styled.section`
   display: flex;
   flex: 2;
   justify-content: center;
@@ -46,7 +46,7 @@ const RightArea = styled.div`
 const Home: NextPage = () => {
   const {media, color} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
-  const {account} = useGetAccount();
+  const {account, isLoading} = useGetAccount();
   const options = useMemo<ChartOptions>(
     () => ({
       responsive: true,
@@ -84,7 +84,9 @@ const Home: NextPage = () => {
   return (
     <Container>
       <LeftArea isMobile={isMobile}>
-        <Avatar size={250} src={account?.avatar as string} />
+        {!isLoading ? (
+          <Avatar size={250} src={account?.avatar as string} />
+        ) : null}
         <h2>{account?.name}</h2>
         <h3>성별 {account?.sex}</h3>
         <h3>도시 {account?.city}</h3>

@@ -1,5 +1,7 @@
+import * as process from 'process';
+
 import {debounce} from 'lodash';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 
 import {
   mainMenuSelector,
@@ -11,9 +13,9 @@ import SubNav from './SubNav';
 import TopNav from './TopNav';
 
 import {Icon, Link, Li, Ul} from '@components/atom';
-import {Avatar} from '@components/molecule';
+import {Avatar, Button} from '@components/molecule';
+import {useGetAccount} from '@feature/Account/hooks';
 import {useMediaQuery} from '@hooks/media';
-import {useSession} from '@lib/next-auth/react';
 import {useRecoilValue, useSetRecoilState} from '@lib/recoil';
 import styled, {useTheme} from '@lib/styled-components';
 
@@ -42,7 +44,6 @@ const NavBarLink = styled(Link)`
 
 const AvatarContainer = styled.div`
   padding-left: 10px;
-  cursor: pointer;
 `;
 
 const HamburgButtonContainer = styled(NavBarLi)`
@@ -58,8 +59,7 @@ const NavBar = () => {
   const mainMenuShow = useSetRecoilState(mainMenuShowSelector);
   const {media} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
-  const {data: userData, status} = useSession();
-
+  const {account, isLoading} = useGetAccount();
   const showContests = debounce(subMenu => {
     setSubMenu(subMenu);
     mainMenuShow(true);
@@ -70,6 +70,21 @@ const NavBar = () => {
 
   const setHideNav = () =>
     setTopNavHeight(prevState => (prevState === '0px' ? '100%' : '0px'));
+
+  const buttonColor = useMemo(
+    () =>
+      new Date((account?.activity_read?.expires_at as number) * 1000) <
+      new Date()
+        ? 'red'
+        : 'blue',
+    [account?.activity_read?.expires_at],
+  );
+
+  const authorizationUrl = useMemo(
+    () =>
+      `https://www.strava.com/oauth/authorize?client_id=108048&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&approval_prompt=force&scope=activity:read`,
+    [],
+  );
 
   return (
     <RootNav height={rootNavHeight} onMouseLeave={hideContests}>
@@ -91,12 +106,17 @@ const NavBar = () => {
         <LiContainer
           style={{justifyContent: isMobile ? 'flex-end' : 'inherit'}}>
           <NavBarLi style={{alignItems: 'center'}}>
-            {status !== 'loading' ? (
+            {!isLoading ? (
               <>
-                안녕하세요 {userData?.user.name}님
+                안녕하세요 {account?.name}님
                 <AvatarContainer>
-                  <Avatar src={userData?.user.picture} size="small" />
+                  <Avatar src={account?.avatar as string} size="small" />
                 </AvatarContainer>
+                <Button color={buttonColor} style={{marginLeft: 10}}>
+                  <Link style={{color: 'white'}} href={authorizationUrl}>
+                    데이터 갱신하기
+                  </Link>
+                </Button>
               </>
             ) : null}
           </NavBarLi>

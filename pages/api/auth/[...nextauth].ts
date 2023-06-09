@@ -1,10 +1,12 @@
-import NextAuth from '@lib/next-auth';
+import NextAuth, {NextAuthOptions} from '@lib/next-auth';
 import StravaProvider from '@lib/next-auth/providers/strava';
 
-export default NextAuth({
+const authOption: NextAuthOptions = {
   providers: [StravaProvider],
   callbacks: {
     jwt: ({token}) => ({...token, scope: 'read'}),
     session: ({session, token}) => ({...session, user: {...token}}),
   },
-});
+};
+
+export default NextAuth(authOption);
