@@ -1,7 +1,6 @@
 import * as colors from './colors';
 import {media} from './media';
 import opacity from './opacity';
-import shadow from './shadow';
 import size from './size';
 import typography from './typography';
 
@@ -12,7 +11,6 @@ export const enum ColorScheme {
 
 export type Color<T extends ColorScheme> = Recursive<(typeof colors)[T]>;
 export type Size = Recursive<typeof size>;
-export type Shadow = Recursive<typeof shadow>;
 export type Media = Recursive<typeof media>;
 export type Typography = Recursive<typeof typography>;
 export type Opacity = Recursive<typeof opacity>;
@@ -21,7 +19,6 @@ export type Insets = {top: number; bottom: number; right: number; left: number};
 export type Theme<T extends ColorScheme> = {
   color: Color<T>;
   size: Size;
-  shadow: Shadow;
   typography: Typography;
   opacity: Opacity;
   insets: Insets;
@@ -31,7 +28,6 @@ export type Theme<T extends ColorScheme> = {
 const themeWithoutColor: Omit<Theme<ColorScheme>, 'color'> = {
   size,
   opacity,
-  shadow,
   typography,
   insets: {top: 0, bottom: 0, right: 0, left: 0},
   media,

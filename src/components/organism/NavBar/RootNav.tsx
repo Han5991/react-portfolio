@@ -8,7 +8,7 @@ const RootNav = styled.nav<{height: string}>`
   background-color: ${({theme}) => theme.color.content[100]};
   z-index: 998;
   overflow: hidden;
-  transition: height 0.3s;
+  transition: height 0.3s ease;
   height: ${({height}) => height};
 `;
 export default RootNav;

@@ -1,8 +1,13 @@
-import React, {useMemo, ComponentPropsWithoutRef} from 'react';
+import React, {ComponentPropsWithoutRef, FC} from 'react';
 
-import styled, {useTheme, CSSProperties} from '@lib/styled-components';
+import styled, {useTheme} from '@lib/styled-components';
 
-type DivProps = ComponentPropsWithoutRef<'div'>;
+type DivProps = ComponentPropsWithoutRef<'div'> & {
+  borderRadius?: number;
+  aspectRatio?: number;
+  backgroundColor?: string;
+  border?: string;
+};
 
 type BoxProps = {
   size?: 'large' | 'normal' | 'small' | number;
@@ -11,49 +16,42 @@ type BoxProps = {
   backgroundColor?: string;
 } & DivProps;
 
-const Container = styled.div<DivProps>`
+const Container = styled.div<BoxProps>`
+  width: ${({size}) => size}px;
+  height: ${({size}) => size}px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  &:hover {
-    background-color: ${({theme}) => theme.color.content[100]};
-  }
-
-  &:active {
-    background-color: ${({theme}) => theme.color.content[300]};
-  }
+  border-radius: ${({borderRadius}) => borderRadius || 0}px;
+  aspect-ratio: ${({aspectRatio}) => aspectRatio};
+  background-color: ${({backgroundColor}) => backgroundColor};
+  border: ${({border}) => border};
 `;
 
-const Box = (props: BoxProps) => {
+const Box: FC<BoxProps> = props => {
   const theme = useTheme();
   const {
     children,
-    style: styleProp,
+    style,
     size: sizeProp = 'large',
     type = 'rectangle',
     borderColor,
     backgroundColor,
     ...restProps
   } = props;
-  const style: CSSProperties = useMemo(() => {
-    const size =
-      typeof sizeProp === 'number' ? sizeProp : theme.size.box[sizeProp];
-    const borderRadius =
-      type === 'circle' || type === 'chip' ? size : theme.size['1.5'];
-    const aspectRatio = type === 'circle' || type === 'square' ? 1 : undefined;
-    return {
-      height: size,
-      minWidth: size,
-      borderRadius,
-      aspectRatio,
-      backgroundColor,
-      border: borderColor ? `1px solid ${borderColor}` : '',
-      ...styleProp,
-    };
-  }, [sizeProp, type, borderColor, backgroundColor, styleProp, theme]);
+  const size =
+    typeof sizeProp === 'number' ? sizeProp : theme.size.box[sizeProp];
+  const borderRadius =
+    type === 'circle' || type === 'chip' ? size : theme.size['1.5'];
+  const aspectRatio = type === 'circle' || type === 'square' ? 1 : undefined;
+
   return (
     <Container
+      size={size}
+      borderRadius={borderRadius}
+      aspectRatio={aspectRatio}
+      backgroundColor={backgroundColor}
+      border={borderColor ? `1px solid ${borderColor}` : ''}
       style={style}
       data-testid="@box/container"
       // eslint-disable-next-line react/jsx-props-no-spreading

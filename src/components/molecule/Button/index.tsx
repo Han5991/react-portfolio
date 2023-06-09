@@ -27,7 +27,7 @@ const HButton = styled.button<{
   border-radius: 4px;
   background: ${({background}) => background};
   color: ${({color}) => color};
-  width: ${({size}) => size}px;
+  width: ${({size}) => size * 1.8}px;
   height: ${({size}) => size}px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,

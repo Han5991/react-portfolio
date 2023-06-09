@@ -3,15 +3,14 @@ import {normalize} from '@lib/styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}
-  .content {
-    margin-top: 44px;
+  
+  body {
+    background-color: ${({theme}) => theme.color.text[0]};
   }
 
-  .content.blurred {
-    filter: blur(5px);
-  }
-  h1 {
-    margin: 0;
+  .content {
+    margin: 44px 77px 0 77px;
+    padding: 16px 0;
   }
 `;
 

@@ -50,9 +50,9 @@ const size = {
   '5/6': '83.333%',
   full: '100%',
   box: {
-    large: 44,
-    normal: 34,
-    small: 26,
+    large: 610,
+    normal: 450,
+    small: 280,
   },
   list: {
     large: 66,
