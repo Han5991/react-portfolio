@@ -1,7 +1,8 @@
 import type {NextPage, Metadata} from 'next';
 import React, {useMemo} from 'react';
 
-import {Card, HeatMap} from '@components/molecule';
+import {Avatar, Card, HeatMap} from '@components/molecule';
+import {useGetAccount} from '@feature/Account/hooks';
 import {useMediaQuery} from '@hooks/media';
 import {
   Chart,
@@ -31,12 +32,13 @@ const Container = styled.div`
 const LeftArea = styled.div<{isMobile: boolean}>`
   display: ${({isMobile}) => (isMobile ? 'none' : 'flex')};
   flex: 1;
-  height: ${({theme}) => theme.size.full};
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const RightArea = styled.div`
   display: flex;
-  height: ${({theme}) => theme.size.full};
   flex: 2;
   justify-content: center;
 `;
@@ -44,13 +46,13 @@ const RightArea = styled.div`
 const Home: NextPage = () => {
   const {media, color} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
-
+  const {account} = useGetAccount();
   const options = useMemo<ChartOptions>(
     () => ({
       responsive: true,
       plugins: {
         legend: {
-          position: 'bottom' as const,
+          position: 'bottom',
         },
         title: {
           display: true,
@@ -75,12 +77,22 @@ const Home: NextPage = () => {
     [color.blue],
   );
 
-  const hitMapData = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const hitMapData = Array(365)
+    .fill(0)
+    .map(() => Math.floor(Math.random() * 5));
 
   return (
     <Container>
       <LeftArea isMobile={isMobile}>
-        <Card body={<Bar options={options} data={data} />} />
+        <Avatar size={250} src={account?.avatar as string} />
+        <h2>{account?.name}</h2>
+        <h3>성별 {account?.sex}</h3>
+        <h3>도시 {account?.city}</h3>
+        <h3>몸무게 {account?.weight}</h3>
+        <Card
+          style={{height: 300}}
+          body={<Bar options={options} data={data} />}
+        />
       </LeftArea>
       <RightArea>
         <HeatMap count={hitMapData} />

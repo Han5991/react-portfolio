@@ -135,7 +135,7 @@ const HeatMap: FC<HeatMapProps> = props => {
     squareNumber = DAYS_IN_YEAR,
     count,
     squareGap = '2px',
-    squareSize = '10px',
+    squareSize = '8px',
   } = props;
   const level = useMemo(() => count.map(transformCount), [count]);
   const weekWidth = useMemo(

@@ -12,9 +12,9 @@ export type MainMenu = Content & {
   subMenu: SubMenu[];
 };
 
-export type MainMenuShow = false | true;
+export type MainMenuShow = boolean;
 
 export type LeftMenuShow = {
-  show: false | true;
+  show: boolean;
   content?: SubMenu[];
 };

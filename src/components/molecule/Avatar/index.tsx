@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {FC, useState} from 'react';
 
 import {Box, Image, Skeleton} from '@components/atom';
 import styled from '@lib/styled-components';
@@ -19,7 +19,7 @@ const AvatarImage = styled(Image)`
   border-radius: inherit;
 `;
 
-const Avatar = (props: AvatarProps) => {
+const Avatar: FC<AvatarProps> = props => {
   const {src, size, onClick} = props;
   const viewSize = typeof size === 'string' ? sizeMap[size] : size;
   const [isLoading, setIsLoading] = useState(true);

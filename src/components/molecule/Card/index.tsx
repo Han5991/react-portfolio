@@ -1,4 +1,4 @@
-import React, {CSSProperties, ReactNode, useMemo} from 'react';
+import React, {CSSProperties, FC, ReactNode, useMemo} from 'react';
 
 import {Box, Line} from '@components/atom';
 import styled, {useTheme} from '@lib/styled-components';
@@ -17,14 +17,14 @@ type CardProps = {
   style?: CSSProperties;
 };
 
-const CardContainer = styled(Box)`
+const Container = styled(Box)`
   height: auto;
   flex-direction: column;
   box-shadow: 0 2px 4px
     ${({theme}) => theme.color.text[700] + theme.opacity[40]};
 `;
 
-const Card = (props: CardProps) => {
+const Card: FC<CardProps> = props => {
   const {size = 'normal', footer, header, body, style} = props;
   const width = sizeMap[size];
   const {color} = useTheme();
@@ -34,7 +34,7 @@ const Card = (props: CardProps) => {
   );
 
   return (
-    <CardContainer style={style}>
+    <Container style={style}>
       {header ? (
         <>
           <Box>{header}</Box>
@@ -48,7 +48,7 @@ const Card = (props: CardProps) => {
         </>
       ) : null}
       {footer ? <Box>{footer}</Box> : null}
-    </CardContainer>
+    </Container>
   );
 };
 

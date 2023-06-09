@@ -16,7 +16,9 @@ type BoxProps = {
   backgroundColor?: string;
 } & DivProps;
 
-const Container = styled.div<DivProps>`
+const Container = styled.div<BoxProps>`
+  width: ${({size}) => size}px;
+  height: ${({size}) => size}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,6 +47,7 @@ const Box: FC<BoxProps> = props => {
 
   return (
     <Container
+      size={size}
       borderRadius={borderRadius}
       aspectRatio={aspectRatio}
       backgroundColor={backgroundColor}
