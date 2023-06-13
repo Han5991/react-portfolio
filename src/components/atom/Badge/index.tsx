@@ -1,4 +1,4 @@
-import React, {ComponentPropsWithoutRef} from 'react';
+import React, {ComponentPropsWithoutRef, FC} from 'react';
 
 import styled, {useTheme} from '@lib/styled-components';
 
@@ -16,7 +16,7 @@ const Container = styled.div`
   font-size: ${({theme}) => theme.typography.fontSizes.xs}px;
 `;
 
-const Badge = (props: BadgeProps) => {
+const Badge: FC<BadgeProps> = props => {
   const theme = useTheme();
   const {
     size = theme.size['2.5'],

@@ -1,4 +1,4 @@
-import {getFirestore} from 'firebase/firestore';
+import {getFirestore, connectFirestoreEmulator} from 'firebase/firestore';
 
 import {initializeApp, FirebaseOptions} from '../app';
 
@@ -12,6 +12,13 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: 'G-ZF6TZ38YWS',
 };
 const app = initializeApp(firebaseConfig);
-
 export const db = getFirestore(app);
+try {
+  if (process.env.NODE_ENV === 'development') {
+    connectFirestoreEmulator(db, 'localhost', 8080);
+  }
+} catch (e) {
+  // nothing
+}
+
 export * from 'firebase/firestore';

@@ -1,4 +1,4 @@
-import {ComponentPropsWithoutRef} from 'react';
+import {ComponentPropsWithoutRef, FC} from 'react';
 
 import styled from '@lib/styled-components';
 
@@ -9,7 +9,7 @@ const HUl = styled.ul`
   padding: ${({theme}) => theme.size['0']}px;
 `;
 
-const Ul = (props: UlProps) => {
+const Ul: FC<UlProps> = props => {
   const {children, ...restPres} = props;
   // eslint-disable-next-line react/jsx-props-no-spreading
   return <HUl {...restPres}>{children}</HUl>;

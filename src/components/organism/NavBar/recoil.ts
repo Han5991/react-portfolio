@@ -2,6 +2,11 @@ import {SubMenu, MainMenu, MainMenuShow, LeftMenuShow} from './types';
 
 import {atom, selector} from '@lib/recoil';
 
+const dataLoadingState = atom({
+  key: 'dataLoading',
+  default: true,
+});
+
 const mainMenuShowState = atom<MainMenuShow>({
   key: 'mainMenuShow',
   default: false,
@@ -79,4 +84,10 @@ export const leftMenuShowSelector = selector({
   key: 'leftMenuShowSelector',
   get: ({get}) => get(leftMenuShowState),
   set: ({set}, newValue) => set(leftMenuShowState, newValue),
+});
+
+export const dataLoadingSelector = selector({
+  key: 'dataLoadingSelector',
+  get: ({get}) => get(dataLoadingState),
+  set: ({set}, newValue) => set(dataLoadingState, newValue),
 });
