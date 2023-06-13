@@ -1,4 +1,4 @@
-import {useMemo, ComponentPropsWithoutRef} from 'react';
+import {useMemo, ComponentPropsWithoutRef, FC} from 'react';
 
 import {LoadingSpinner, Icon as Icons} from '@components/atom';
 import styled, {useTheme} from '@lib/styled-components';
@@ -47,7 +47,7 @@ const HButton = styled.button<{
   }
 `;
 
-const Button = (props: ButtonProps) => {
+const Button: FC<ButtonProps> = props => {
   const theme = useTheme();
   const {
     type = 'button',
@@ -111,7 +111,7 @@ const Button = (props: ButtonProps) => {
       {...restProps}
       style={style}>
       {loading ? (
-        <LoadingSpinner size={size} />
+        <LoadingSpinner />
       ) : (
         <>
           {LeftIcon ? (

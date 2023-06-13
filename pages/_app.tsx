@@ -10,7 +10,14 @@ import {ThemeProvider} from '@lib/styled-components';
 import GlobalStyle from '@styles/global-styles';
 import theme, {ColorScheme} from '@styles/theme';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      staleTime: 1000 * 60 * 60 * 12,
+    },
+  },
+});
 
 const MyApp = ({Component, pageProps: {session, ...pageProps}}: AppProps) => {
   const themeMode = useThemeMode();

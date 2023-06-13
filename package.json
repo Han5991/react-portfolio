@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "serve": "firebase emulators:start --import ./data",
+    "export": "firebase emulators:export ./data"
   },
   "engines": {
     "node": "18"
@@ -38,6 +40,7 @@
     "@testing-library/dom": "^9.2.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "14.4.3",
     "@types/lodash": "^4.14.194",
     "@types/node": "18.16.0",
@@ -63,6 +66,7 @@
     "jest-environment-jsdom": "29.5.0",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.7",
+    "react-test-renderer": "^18.2.0",
     "typescript": "^5.0.4"
   },
   "lint-staged": {

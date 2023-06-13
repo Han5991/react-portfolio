@@ -4,7 +4,7 @@ import StravaProvider from '@lib/next-auth/providers/strava';
 const authOption: NextAuthOptions = {
   providers: [StravaProvider],
   callbacks: {
-    jwt: ({token}) => ({...token, scope: 'read'}),
+    jwt: ({token}) => token,
     session: ({session, token}) => ({...session, user: {...token}}),
   },
 };

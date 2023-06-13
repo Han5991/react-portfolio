@@ -1,104 +1,97 @@
 import type {NextPage, Metadata} from 'next';
-import React, {useMemo} from 'react';
+import {useRouter} from 'next/router';
+import React, {useEffect} from 'react';
 
-import {Avatar, Card, HeatMap} from '@components/molecule';
+import {Skeleton} from '@components/atom';
+import {Avatar} from '@components/molecule';
+import {dataLoadingSelector} from '@components/organism/NavBar/recoil';
 import {useGetAccount} from '@feature/Account/hooks';
-import {useMediaQuery} from '@hooks/media';
+import {initActivities} from '@feature/Activity/data';
 import {
-  Chart,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from '@lib/chart.js';
-import type {ChartOptions, ChartData} from '@lib/chart.js';
-import {Bar} from '@lib/react-chartjs-2';
+  ThisMonthChart,
+  ThisWeekChart,
+  ThisYearHeatMap,
+} from '@feature/Home/component';
+import {useMediaQuery} from '@hooks/media';
+import {useSetRecoilState} from '@lib/recoil';
 import styled, {useTheme} from '@lib/styled-components';
-
-Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 export const metadata: Metadata = {
   title: 'My-Starter-Home',
   description: '자신만의 스트라바를 구축할 수 있어요',
 };
 
-const Container = styled.div`
-  display: flex;
+const Container = styled.div<{isMobile: boolean}>`
+  display: ${({isMobile}) => (isMobile ? 'flex' : 'grid')};
+  flex-direction: ${({isMobile}) => (isMobile ? 'column' : 'row')};
+  grid-template-columns: 45% 45%;
+  grid-gap: 20px;
   justify-content: center;
 `;
 
-const LeftArea = styled.section<{isMobile: boolean}>`
-  display: ${({isMobile}) => (isMobile ? 'none' : 'flex')};
-  flex: 1;
+const Contents = styled.div`
+  box-shadow: 0 2px 4px
+    ${({theme}) => theme.color.text[700] + theme.opacity[40]};
+  justify-content: center;
+`;
+
+const User = styled.div`
+  display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
-`;
-
-const RightArea = styled.section`
-  display: flex;
-  flex: 2;
-  justify-content: center;
 `;
 
 const Home: NextPage = () => {
-  const {media, color} = useTheme();
+  const router = useRouter();
+  const {media} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
-  const {account, isLoading} = useGetAccount();
-  const options = useMemo<ChartOptions>(
-    () => ({
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom',
-        },
-        title: {
-          display: true,
-          text: '이번주 운동 거리',
-        },
-      },
-    }),
-    [],
-  );
+  const {account} = useGetAccount();
+  const setDataLoading = useSetRecoilState(dataLoadingSelector);
 
-  const data = useMemo<ChartData<'bar'>>(
-    () => ({
-      labels: ['일', '월', '화', '수', '목', '금', '토'],
-      datasets: [
-        {
-          label: '거리',
-          data: [46, 7.22, 48, 46, 46, 46, 46],
-          backgroundColor: color.blue[200],
-        },
-      ],
-    }),
-    [color.blue],
-  );
-
-  const hitMapData = Array(365)
-    .fill(0)
-    .map(() => Math.floor(Math.random() * 5));
+  useEffect(() => {
+    const token = account?.token;
+    if (token) {
+      if ((token.expires_at + token.expires_in) * 1000 > new Date().getTime()) {
+        setDataLoading(true);
+        initActivities(
+          account.id,
+          token.access_token,
+          account?.summary.recent_ride_totals.count,
+        ).then(value => {
+          if (value) {
+            router.reload();
+          }
+          setDataLoading(false);
+        });
+      }
+    } else {
+      setDataLoading(false);
+    }
+  }, [account, router, setDataLoading]);
 
   return (
-    <Container>
-      <LeftArea isMobile={isMobile}>
-        {!isLoading ? (
-          <Avatar size={250} src={account?.avatar as string} />
-        ) : null}
-        <h2>{account?.name}</h2>
-        <h3>성별 {account?.sex}</h3>
-        <h3>도시 {account?.city}</h3>
-        <h3>몸무게 {account?.weight}</h3>
-        <Card
-          style={{height: 300}}
-          body={<Bar options={options} data={data} />}
-        />
-      </LeftArea>
-      <RightArea>
-        <HeatMap count={hitMapData} />
-      </RightArea>
+    <Container isMobile={isMobile}>
+      <Contents>
+        <User>
+          {account ? <Avatar size={150} src={account.avatar} /> : null}
+          <h1>{account?.name}</h1>
+          <h3>성별 {account?.sex}</h3>
+          <h3>도시 {account?.city}</h3>
+          <h3>몸무게 {account?.weight}</h3>
+        </User>
+      </Contents>
+      <Contents>
+        {account ? <ThisWeekChart id={account?.id} /> : <Skeleton show />}
+      </Contents>
+      {account && !isMobile ? (
+        <ThisYearHeatMap id={account?.id} />
+      ) : (
+        <Skeleton show />
+      )}
+      <Contents>
+        {account ? <ThisMonthChart id={account?.id} /> : <Skeleton show />}
+      </Contents>
     </Container>
   );
 };

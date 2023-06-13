@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   }
 `;
 const Graph = styled.div`
+  box-sizing: border-box;
   padding: 15px;
   display: inline-grid;
   grid-template-areas:
@@ -20,8 +21,6 @@ const Graph = styled.div`
     'days squares';
   grid-template-columns: auto 1fr;
   grid-gap: 10px;
-  box-shadow: 0 2px 4px
-    ${({theme}) => theme.color.text[700] + theme.opacity[40]};
 `;
 const Months = styled.ul<{weekWidth: string}>`
   padding-inline-start: 0;
@@ -134,8 +133,8 @@ const HeatMap: FC<HeatMapProps> = props => {
     colour = ['#ebedf0', '#c6e48b', '#40c463', '#30a14e', '#216e39'],
     squareNumber = DAYS_IN_YEAR,
     count,
-    squareGap = '2px',
-    squareSize = '8px',
+    squareGap = '5px',
+    squareSize = '10px',
   } = props;
   const level = useMemo(() => count.map(transformCount), [count]);
   const weekWidth = useMemo(

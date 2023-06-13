@@ -7,9 +7,11 @@ const {STRAVA_ID, STRAVA_SECRET} = process.env;
 export default StravaProvider<IAthlete>({
   clientId: STRAVA_ID,
   clientSecret: STRAVA_SECRET,
-  profile: async user => {
+  profile: async (user, tokens) => {
     const {id, firstname, lastname, profile} = user;
-    await createAccount(user);
+    const accessToken = tokens?.access_token as string;
+
+    await createAccount(user, accessToken);
     return {
       id: id.toString(),
       name: firstname + lastname,

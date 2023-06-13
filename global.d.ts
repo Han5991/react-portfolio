@@ -1,6 +1,12 @@
 export declare global {
   type Recursive<T> = {[P in keyof T]: Recursive<T[P]>};
 
+  type RangeNumber<Min extends number, Max extends number> =
+    | Min
+    | Max
+    | (Min | Max)[]
+    | (Min | Max)[][];
+
   type Values<T> = T[keyof T];
 
   type RemoveOptional<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
