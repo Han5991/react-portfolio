@@ -1,5 +1,5 @@
 import NLink, {LinkProps as NLinkProps} from 'next/link';
-import React, {CSSProperties, ReactNode} from 'react';
+import React, {CSSProperties, FC, ReactNode} from 'react';
 
 import styled from '@lib/styled-components';
 
@@ -14,7 +14,7 @@ const SLink = styled(NLink)`
   }
 ` as typeof NLink;
 
-const Link = (props: LinkProps) => {
+const Link: FC<LinkProps> = props => {
   const {children, ...restProps} = props;
   return (
     <SLink

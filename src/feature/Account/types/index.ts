@@ -21,6 +21,27 @@ export interface IAthlete {
   weight: number;
 }
 
+export interface ISummary {
+  count: number;
+  distance: number;
+  moving_time: number;
+  elapsed_time: number;
+  elevation_gain: number;
+}
+
+export interface IStravaToken {
+  access_token: string;
+  expires_at: number;
+  refresh_token: string;
+  expires_in: number;
+}
+
+export interface ISummaryType {
+  recent_ride_totals: ISummary & {achievement_count: number};
+  all_ride_totals: ISummary;
+  ytd_ride_totals: ISummary;
+}
+
 export interface IAccount {
   id: string;
   name: string;
@@ -29,4 +50,6 @@ export interface IAccount {
   country: string;
   sex: 'M' | 'F';
   weight: number;
+  token?: IStravaToken;
+  summary: ISummaryType;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import styled from '@lib/styled-components';
 
@@ -20,7 +20,7 @@ const VerticalLine = styled.div<Pick<LineProps, 'length' | 'color'>>`
   background-color: ${({theme, color}) => color || theme.color.content[800]};
 `;
 
-const Line = (props: LineProps) => {
+const Line: FC<LineProps> = props => {
   const {type, length, color} = props;
   return type === 'horizontal' ? (
     <HorizontalLine length={length} color={color} />

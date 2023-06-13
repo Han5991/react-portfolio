@@ -1,10 +1,10 @@
-import {useMemo, ComponentPropsWithoutRef} from 'react';
+import {useMemo, ComponentPropsWithoutRef, FC} from 'react';
 
 import {LoadingSpinner, Icon as Icons} from '@components/atom';
 import styled, {useTheme} from '@lib/styled-components';
 
 type ButtonProps = {
-  color?: 'black' | 'blue' | 'gray';
+  color?: 'black' | 'blue' | 'gray' | 'red';
   size?: 'large' | 'normal' | 'small' | number;
   loading?: boolean;
   badge?: boolean | number;
@@ -37,20 +37,22 @@ const HButton = styled.button<{
     ${({theme}) => theme.color.text[700] + theme.opacity[40]};
 
   &:hover {
-    background-color: ${({theme}) => theme.color.content[100]};
+    background-color: ${({theme, background}) =>
+      background + theme.opacity[80]};
   }
 
   &:active {
-    background-color: ${({theme}) => theme.color.content[300]};
+    background-color: ${({theme, background}) =>
+      background + theme.opacity[90]};
   }
 `;
 
-const Button = (props: ButtonProps) => {
+const Button: FC<ButtonProps> = props => {
   const theme = useTheme();
   const {
     type = 'button',
     color: colorProp,
-    size: sizeProp = 'large',
+    size: sizeProp = 'small',
     leftIcon,
     rightIcon,
     disabled,
@@ -63,7 +65,7 @@ const Button = (props: ButtonProps) => {
   const LeftIcon = leftIcon ? Icons[leftIcon] : null;
   const RightIcon = rightIcon ? Icons[rightIcon] : null;
   const size =
-    typeof sizeProp === 'number' ? sizeProp : theme.size.box[sizeProp];
+    typeof sizeProp === 'number' ? sizeProp : theme.size.button[sizeProp];
   const {background, color} = useMemo(() => {
     if (disabled)
       return {
@@ -86,6 +88,11 @@ const Button = (props: ButtonProps) => {
           background: theme.color.box[300],
           color: theme.color.white,
         };
+      case 'red':
+        return {
+          background: theme.color.red[300],
+          color: theme.color.white,
+        };
       default:
         return {
           background: theme.color.content[0],
@@ -104,7 +111,7 @@ const Button = (props: ButtonProps) => {
       {...restProps}
       style={style}>
       {loading ? (
-        <LoadingSpinner size={size} />
+        <LoadingSpinner />
       ) : (
         <>
           {LeftIcon ? (

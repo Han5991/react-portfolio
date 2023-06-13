@@ -54,6 +54,11 @@ const size = {
     normal: 450,
     small: 280,
   },
+  button: {
+    large: 66,
+    normal: 49,
+    small: 44,
+  },
   list: {
     large: 66,
     normal: 49,

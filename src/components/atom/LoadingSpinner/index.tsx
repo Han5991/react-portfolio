@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import styled, {keyframes, CSSProperties} from '@lib/styled-components';
 
@@ -22,7 +22,7 @@ const Loading = styled.div<Pick<LoadingSpinnerProps, 'size'>>`
   animation: ${spinner} 0.7s linear infinite;
 `;
 
-const LoadingSpinner = (props: LoadingSpinnerProps) => {
+const LoadingSpinner: FC<LoadingSpinnerProps> = props => {
   const {size, style} = props;
   return <Loading size={size} style={style} data-testid="@loadingSpinner" />;
 };

@@ -1,19 +1,20 @@
 import {debounce} from 'lodash';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 
 import {
   mainMenuSelector,
   subMenuSelector,
   mainMenuShowSelector,
+  dataLoadingSelector,
 } from './recoil';
 import RootNav from './RootNav';
 import SubNav from './SubNav';
 import TopNav from './TopNav';
 
-import {Icon, Link, Li, Ul} from '@components/atom';
-import {Avatar} from '@components/molecule';
+import {Icon, Link, Li, Ul, Skeleton} from '@components/atom';
+import {Avatar, Button} from '@components/molecule';
+import {useGetAccount} from '@feature/Account/hooks';
 import {useMediaQuery} from '@hooks/media';
-import {useSession} from '@lib/next-auth/react';
 import {useRecoilValue, useSetRecoilState} from '@lib/recoil';
 import styled, {useTheme} from '@lib/styled-components';
 
@@ -42,7 +43,6 @@ const NavBarLink = styled(Link)`
 
 const AvatarContainer = styled.div`
   padding-left: 10px;
-  cursor: pointer;
 `;
 
 const HamburgButtonContainer = styled(NavBarLi)`
@@ -56,10 +56,10 @@ const NavBar = () => {
   const setSubMenu = useSetRecoilState(subMenuSelector);
   const mainMenu = useRecoilValue(mainMenuSelector);
   const mainMenuShow = useSetRecoilState(mainMenuShowSelector);
+  const dataLoading = useRecoilValue(dataLoadingSelector);
   const {media} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
-  const {data: userData, status} = useSession();
-
+  const {account, isLoading} = useGetAccount();
   const showContests = debounce(subMenu => {
     setSubMenu(subMenu);
     mainMenuShow(true);
@@ -70,6 +70,24 @@ const NavBar = () => {
 
   const setHideNav = () =>
     setTopNavHeight(prevState => (prevState === '0px' ? '100%' : '0px'));
+
+  const buttonColor = useMemo(() => {
+    if (account?.token === undefined) return 'red';
+    return new Date((account?.token?.expires_at as number) * 1000) < new Date()
+      ? 'red'
+      : 'blue';
+  }, [account?.token]);
+
+  const authorizationUrl = useMemo(() => {
+    const query = new URLSearchParams({
+      client_id: '108048',
+      response_type: 'code',
+      redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI as string,
+      approval_prompt: 'force',
+      scope: 'read,read_all,activity:read_all,profile:read_all',
+    }).toString();
+    return `https://www.strava.com/oauth/authorize?${query}`;
+  }, []);
 
   return (
     <RootNav height={rootNavHeight} onMouseLeave={hideContests}>
@@ -91,14 +109,24 @@ const NavBar = () => {
         <LiContainer
           style={{justifyContent: isMobile ? 'flex-end' : 'inherit'}}>
           <NavBarLi style={{alignItems: 'center'}}>
-            {status !== 'loading' ? (
+            {!isLoading ? (
               <>
-                안녕하세요 {userData?.user.name}님
+                안녕하세요 {account?.name}님
                 <AvatarContainer>
-                  <Avatar src={userData?.user.picture} size="small" />
+                  <Avatar src={account?.avatar as string} size="small" />
                 </AvatarContainer>
+                <Button
+                  color={buttonColor}
+                  style={{marginLeft: 10}}
+                  loading={dataLoading}>
+                  <Link style={{color: 'white'}} href={authorizationUrl}>
+                    데이터 갱신하기
+                  </Link>
+                </Button>
               </>
-            ) : null}
+            ) : (
+              <Skeleton show={isLoading} />
+            )}
           </NavBarLi>
         </LiContainer>
         {isMobile ? (

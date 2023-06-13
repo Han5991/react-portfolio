@@ -20,8 +20,6 @@ type CardProps = {
 const Container = styled(Box)`
   height: auto;
   flex-direction: column;
-  box-shadow: 0 2px 4px
-    ${({theme}) => theme.color.text[700] + theme.opacity[40]};
 `;
 
 const Card: FC<CardProps> = props => {
