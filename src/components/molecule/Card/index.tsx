@@ -3,14 +3,8 @@ import React, {CSSProperties, FC, ReactNode, useMemo} from 'react';
 import {Box, Line} from '@components/atom';
 import styled, {useTheme} from '@lib/styled-components';
 
-const sizeMap = {
-  small: 280,
-  normal: 450,
-  large: 610,
-} as const;
-
 type CardProps = {
-  size?: keyof typeof sizeMap;
+  size?: 'small' | 'normal' | 'large';
   header?: ReactNode;
   body?: ReactNode;
   footer?: ReactNode;
@@ -18,34 +12,37 @@ type CardProps = {
 };
 
 const Container = styled(Box)`
-  height: auto;
   flex-direction: column;
+  margin-block-start: 1em;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 `;
 
 const Card: FC<CardProps> = props => {
-  const {size = 'normal', footer, header, body, style} = props;
-  const width = sizeMap[size];
-  const {color} = useTheme();
+  const {size: sizeProp = 'normal', footer, header, body, style} = props;
+  const {color, size} = useTheme();
+  const width = size.box[sizeProp];
   const CardLine = useMemo(
-    () => <Line type="horizontal" length={width} color={color.content[400]} />,
+    () => (
+      <Line type="horizontal" length={width * 0.9} color={color.content[400]} />
+    ),
     [color.content, width],
   );
-
   return (
-    <Container style={style}>
+    <Container size={sizeProp} style={style} borderColor={color.content[400]}>
       {header ? (
         <>
-          <Box>{header}</Box>
+          <hgroup style={{width: '95%'}}>{header}</hgroup>
           {body ? CardLine : null}
         </>
       ) : null}
       {body ? (
         <>
-          <Box>{body}</Box>
+          <Box size={width}>{body}</Box>
           {footer ? CardLine : null}
         </>
       ) : null}
-      {footer ? <Box>{footer}</Box> : null}
+      {footer ? <Box size={width * 0.2}>{footer}</Box> : null}
     </Container>
   );
 };

@@ -30,6 +30,7 @@ export interface IActivity {
   commute: boolean;
   manual: boolean;
   private: boolean;
+  average_cadence: number;
   visibility: string;
   flagged: boolean;
   gear_id: string;
