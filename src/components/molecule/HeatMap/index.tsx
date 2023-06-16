@@ -133,7 +133,7 @@ const HeatMap: FC<HeatMapProps> = props => {
     colour = ['#ebedf0', '#c6e48b', '#40c463', '#30a14e', '#216e39'],
     squareNumber = DAYS_IN_YEAR,
     count,
-    squareGap = '5px',
+    squareGap = '2px',
     squareSize = '10px',
   } = props;
   const level = useMemo(() => count.map(transformCount), [count]);

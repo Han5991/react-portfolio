@@ -28,9 +28,7 @@ const saveAndReturnResults = async (id: string, allActivities: IActivity[]) => {
   const promiseResult = await Promise.allSettled(
     allActivities.map(activity => saveActivities(id, activity)),
   );
-  return promiseResult.map(item =>
-    item.status === 'fulfilled' ? 'ok' : 'fail',
-  );
+  return promiseResult.map(item => item.status);
 };
 
 export const initActivities = async (
@@ -70,7 +68,6 @@ export const allActivitiesByStrava = (
 ) => {
   const perPage = 200;
   const totalPages = Math.ceil(activitiesCount / perPage);
-
   const promises = Array.from({length: totalPages}, (_, page) =>
     getActivitiesByStrava(accessToken, page + 1, perPage),
   );

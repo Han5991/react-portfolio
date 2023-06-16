@@ -57,7 +57,7 @@ const Home: NextPage = () => {
         initActivities(
           account.id,
           token.access_token,
-          account?.summary.recent_ride_totals.count,
+          account?.summary.all_ride_totals.count,
         ).then(value => {
           if (value) {
             router.reload();

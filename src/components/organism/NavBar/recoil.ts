@@ -33,7 +33,7 @@ const mainMenuState = atom<MainMenu[]>({
         {
           id: 0,
           title: '활동피드',
-          content: [{id: 0, title: '활동피드', link: '/'}],
+          content: [{id: 0, title: '활동피드', link: '/feed'}],
         },
         {
           id: 1,
