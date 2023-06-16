@@ -7,13 +7,12 @@ type DivProps = ComponentPropsWithoutRef<'div'> & {
   aspectRatio?: number;
   backgroundColor?: string;
   border?: string;
+  borderColor?: string;
 };
 
 type BoxProps = {
   size?: 'large' | 'normal' | 'small' | number;
   type?: 'circle' | 'rectangle' | 'square' | 'chip';
-  borderColor?: string;
-  backgroundColor?: string;
 } & DivProps;
 
 const Container = styled.div<BoxProps>`
