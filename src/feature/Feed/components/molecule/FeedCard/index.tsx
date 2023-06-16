@@ -38,9 +38,9 @@ const FeedColumn = styled.span`
 const FeedCard: FC<{data: IActivity}> = props => {
   const {data} = props;
   const {
-    name = 'Zwift - Group Ride: Stage 2 - Zwift Ride Series: CoastalCruise (Short) on Island Hopper in Makuri Islands',
-    start_date = '2023년 6월 22일',
-    sport_type = '가상 라이딩',
+    name,
+    start_date,
+    sport_type,
     distance,
     average_watts,
     comment_count,
