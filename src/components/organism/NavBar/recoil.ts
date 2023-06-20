@@ -2,6 +2,11 @@ import {SubMenu, MainMenu, MainMenuShow, LeftMenuShow} from './types';
 
 import {atom, selector} from '@lib/recoil';
 
+const topNavShowState = atom({
+  key: 'topNavShow',
+  default: '0px',
+});
+
 const dataLoadingState = atom({
   key: 'dataLoading',
   default: true,
@@ -27,7 +32,7 @@ const mainMenuState = atom<MainMenu[]>({
   default: [
     {
       id: 0,
-      title: '대시보드',
+      title: '활동내역',
       link: '/',
       subMenu: [
         {
@@ -90,4 +95,10 @@ export const dataLoadingSelector = selector({
   key: 'dataLoadingSelector',
   get: ({get}) => get(dataLoadingState),
   set: ({set}, newValue) => set(dataLoadingState, newValue),
+});
+
+export const topNavShowSelector = selector({
+  key: 'topNavShowSelector',
+  get: ({get}) => get(topNavShowState),
+  set: ({set}, newValue) => set(topNavShowState, newValue),
 });

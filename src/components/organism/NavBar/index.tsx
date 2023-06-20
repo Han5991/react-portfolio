@@ -1,11 +1,13 @@
 import {debounce} from 'lodash';
 import React, {useMemo, useState} from 'react';
+import {useRecoilState} from 'recoil';
 
 import {
   mainMenuSelector,
   subMenuSelector,
   mainMenuShowSelector,
   dataLoadingSelector,
+  topNavShowSelector,
 } from './recoil';
 import RootNav from './RootNav';
 import SubNav from './SubNav';
@@ -52,11 +54,11 @@ const HamburgButtonContainer = styled(NavBarLi)`
 
 const NavBar = () => {
   const [rootNavHeight, setRootNavHeight] = useState('44px');
-  const [topNavHeight, setTopNavHeight] = useState('0px');
-  const setSubMenu = useSetRecoilState(subMenuSelector);
+  const [topNavHeight, setTopNavHeight] = useRecoilState(topNavShowSelector);
   const mainMenu = useRecoilValue(mainMenuSelector);
-  const mainMenuShow = useSetRecoilState(mainMenuShowSelector);
   const dataLoading = useRecoilValue(dataLoadingSelector);
+  const setSubMenu = useSetRecoilState(subMenuSelector);
+  const mainMenuShow = useSetRecoilState(mainMenuShowSelector);
   const {media} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
   const {account, isLoading} = useGetAccount();

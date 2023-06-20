@@ -1,8 +1,9 @@
 import React, {Fragment} from 'react';
+import {useSetRecoilState} from 'recoil';
 
-import {leftMenuShowSelector} from '../recoil';
+import {leftMenuShowSelector, topNavShowSelector} from '../recoil';
 
-import {Icon, Li, Link, Ul} from '@components/atom';
+import {Icon, Li, Link, Ul as LeftNavUl} from '@components/atom';
 import {useRecoilState} from '@lib/recoil';
 import styled from '@lib/styled-components';
 
@@ -10,11 +11,10 @@ const HiddenNav = styled.nav<{isOpen: boolean}>`
   position: fixed;
   top: 0;
   left: ${({isOpen}) => (isOpen ? '0' : '-100%')};
+  width: ${({theme}) => theme.size['1/2']};
   background-color: ${({theme}) => theme.color.content[100]};
   transition: left 0.3s;
 `;
-
-const LeftNavUl = styled(Ul)``;
 
 const LeftNavLinks = styled.div`
   display: grid;
@@ -35,7 +35,14 @@ const LeftIcon = styled(Icon.ChevronLeft)`
 
 const LeftNav = () => {
   const [showLeftNav, setShowLeftNav] = useRecoilState(leftMenuShowSelector);
+  const setTopNavHeight = useSetRecoilState(topNavShowSelector);
   const {show, content} = showLeftNav;
+
+  const hideNav = () => {
+    setTopNavHeight('0px');
+    setShowLeftNav({show: !show});
+  };
+
   return (
     <HiddenNav isOpen={show}>
       <LeftIcon onClick={() => setShowLeftNav({show: !show, content})} />
@@ -54,6 +61,7 @@ const LeftNav = () => {
                       link: subContentLink,
                     }) => (
                       <Link
+                        onClick={hideNav}
                         style={{paddingBottom: 10}}
                         href={subContentLink}
                         key={subContentId}>
