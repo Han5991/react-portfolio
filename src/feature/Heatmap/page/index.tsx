@@ -22,6 +22,13 @@ const SummaryContainer = styled.div`
   text-align: center;
 `;
 
+const HeatmapContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
 const Heatmap = () => {
   const setDataLoading = useSetRecoilState(dataLoadingSelector);
   useEffect(() => {
@@ -31,39 +38,41 @@ const Heatmap = () => {
   const {account} = useGetAccount();
 
   return (
-    <section>
-      <SummaryContainer>
-        <h3>올해 운동 횟수</h3>
-        <h3>올해 달린거리</h3>
-        <h3>올해 획득고도</h3>
-        <h3>올해 운동시간</h3>
-        {account && (
-          <>
-            <p>{account.summary.ytd_ride_totals.count}</p>
-            <p>
-              {Number(account.summary.ytd_ride_totals.distance * 0.001).toFixed(
-                2,
-              )}
-              km
-            </p>
-            <p>{account.summary.ytd_ride_totals.elevation_gain}M</p>
-            <p>
-              {secondsToHhMmSs(account.summary.ytd_ride_totals.moving_time)}
-            </p>
-          </>
-        )}
-      </SummaryContainer>
-      <Container>
-        {account ? <ThisYearHeatMap id={account?.id} /> : <Skeleton show />}
-        <iframe
-          style={{border: 0}}
-          title="strava"
-          height="454"
-          width="300"
-          src={`https://www.strava.com/athletes/${account?.id}/latest-rides/3f16a9a16c4acab6577b0ab4e2a375dd1c0a016a`}
-        />
-      </Container>
-    </section>
+    <HeatmapContainer>
+      <section>
+        <SummaryContainer>
+          <h3>올해 운동 횟수</h3>
+          <h3>올해 달린거리</h3>
+          <h3>올해 획득고도</h3>
+          <h3>올해 운동시간</h3>
+          {account && (
+            <>
+              <p>{account.summary.ytd_ride_totals.count}</p>
+              <p>
+                {Number(
+                  account.summary.ytd_ride_totals.distance * 0.001,
+                ).toFixed(2)}
+                km
+              </p>
+              <p>{account.summary.ytd_ride_totals.elevation_gain}M</p>
+              <p>
+                {secondsToHhMmSs(account.summary.ytd_ride_totals.moving_time)}
+              </p>
+            </>
+          )}
+        </SummaryContainer>
+        <Container>
+          {account ? <ThisYearHeatMap id={account?.id} /> : <Skeleton show />}
+          <iframe
+            style={{border: 0}}
+            title="strava"
+            height="454"
+            width="300"
+            src={`https://www.strava.com/athletes/${account?.id}/latest-rides/3f16a9a16c4acab6577b0ab4e2a375dd1c0a016a`}
+          />
+        </Container>
+      </section>
+    </HeatmapContainer>
   );
 };
 
