@@ -1,11 +1,13 @@
 import {debounce} from 'lodash';
 import React, {useMemo, useState} from 'react';
+import {useRecoilState} from 'recoil';
 
 import {
   mainMenuSelector,
   subMenuSelector,
   mainMenuShowSelector,
   dataLoadingSelector,
+  topNavShowSelector,
 } from './recoil';
 import RootNav from './RootNav';
 import SubNav from './SubNav';
@@ -33,7 +35,7 @@ const NavBarLi = styled(Li)`
 const LiContainer = styled.div`
   display: flex;
   flex: 1;
-  justify-content: center;
+  justify-content: inherit;
 `;
 
 const NavBarLink = styled(Link)`
@@ -52,11 +54,11 @@ const HamburgButtonContainer = styled(NavBarLi)`
 
 const NavBar = () => {
   const [rootNavHeight, setRootNavHeight] = useState('44px');
-  const [topNavHeight, setTopNavHeight] = useState('0px');
-  const setSubMenu = useSetRecoilState(subMenuSelector);
+  const [topNavHeight, setTopNavHeight] = useRecoilState(topNavShowSelector);
   const mainMenu = useRecoilValue(mainMenuSelector);
-  const mainMenuShow = useSetRecoilState(mainMenuShowSelector);
   const dataLoading = useRecoilValue(dataLoadingSelector);
+  const setSubMenu = useSetRecoilState(subMenuSelector);
+  const mainMenuShow = useSetRecoilState(mainMenuShowSelector);
   const {media} = useTheme();
   const isMobile = useMediaQuery(media.mobile);
   const {account, isLoading} = useGetAccount();
@@ -92,7 +94,7 @@ const NavBar = () => {
   return (
     <RootNav height={rootNavHeight} onMouseLeave={hideContests}>
       <NavBarUl isMobile={isMobile}>
-        <LiContainer style={{justifyContent: 'inherit'}}>
+        <LiContainer>
           <NavBarLi>
             <Link href="/">
               <Icon.Home />
@@ -136,7 +138,7 @@ const NavBar = () => {
         ) : null}
       </NavBarUl>
       <SubNav />
-      {isMobile ? <TopNav height={topNavHeight} mainMenu={mainMenu} /> : null}
+      <TopNav height={topNavHeight} mainMenu={mainMenu} />
     </RootNav>
   );
 };
