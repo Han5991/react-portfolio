@@ -12,6 +12,7 @@ const HiddenNav = styled.nav<{isOpen: boolean}>`
   top: 0;
   left: ${({isOpen}) => (isOpen ? '0' : '-100%')};
   width: ${({theme}) => theme.size['1/2']};
+  height: ${({theme}) => theme.size['1/2']};
   background-color: ${({theme}) => theme.color.content[100]};
   transition: left 0.3s;
 `;

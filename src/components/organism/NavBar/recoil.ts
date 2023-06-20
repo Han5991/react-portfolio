@@ -43,7 +43,7 @@ const mainMenuState = atom<MainMenu[]>({
         {
           id: 1,
           title: '히트맵',
-          content: [{id: 0, title: '히트맵', link: '/'}],
+          content: [{id: 0, title: '히트맵', link: '/heatmap'}],
         },
       ],
     },

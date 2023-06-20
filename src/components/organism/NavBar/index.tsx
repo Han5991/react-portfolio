@@ -35,7 +35,7 @@ const NavBarLi = styled(Li)`
 const LiContainer = styled.div`
   display: flex;
   flex: 1;
-  justify-content: center;
+  justify-content: inherit;
 `;
 
 const NavBarLink = styled(Link)`
@@ -94,7 +94,7 @@ const NavBar = () => {
   return (
     <RootNav height={rootNavHeight} onMouseLeave={hideContests}>
       <NavBarUl isMobile={isMobile}>
-        <LiContainer style={{justifyContent: 'inherit'}}>
+        <LiContainer>
           <NavBarLi>
             <Link href="/">
               <Icon.Home />
@@ -138,7 +138,7 @@ const NavBar = () => {
         ) : null}
       </NavBarUl>
       <SubNav />
-      {isMobile ? <TopNav height={topNavHeight} mainMenu={mainMenu} /> : null}
+      <TopNav height={topNavHeight} mainMenu={mainMenu} />
     </RootNav>
   );
 };
