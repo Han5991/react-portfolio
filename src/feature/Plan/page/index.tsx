@@ -8,7 +8,7 @@ const PlanContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 92vh;
 `;
 
 const Plan = () => {
@@ -19,7 +19,9 @@ const Plan = () => {
   return (
     <PlanContainer>
       <section>
-        <h1>Plan</h1>
+        <div style={{}}>
+          <h1>Plan</h1>
+        </div>
       </section>
     </PlanContainer>
   );

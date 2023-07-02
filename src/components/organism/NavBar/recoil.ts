@@ -60,7 +60,7 @@ const mainMenuState = atom<MainMenu[]>({
         {
           id: 1,
           title: '계획',
-          content: [{id: 0, title: '계획', link: '/'}],
+          content: [{id: 0, title: '계획', link: '/plan'}],
         },
       ],
     },
